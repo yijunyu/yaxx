@@ -1,6 +1,6 @@
 int telosparse();
 
-main()
+int main(int argc, char **argv)
 {
-    return(telosparse());
+    return telosparse();
 }

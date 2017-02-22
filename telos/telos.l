@@ -1,16 +1,16 @@
-%option prefix="telos" 
-%option outfile="lex.yy.c"
-%option noyywrap
-D           [0-9]
-L           [a-zA-Z_\$\.0-9]
-E           [Ee][+-]?{D}+
-
 %{
 #include <stdio.h>
 #include "header.h"
 #include "telos.tab.h"
 #define ECHO
 %}
+
+%option prefix="telos" 
+%option outfile="lex.yy.c"
+%option noyywrap
+D           [0-9]
+L           [a-zA-Z_\$\.0-9]
+E           [Ee][+-]?{D}+
 
 %%
 IN	{return IN;}

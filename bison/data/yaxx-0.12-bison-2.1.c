@@ -752,7 +752,7 @@ yystpcpy (yydest, yysrc)
 # ifndef yytnamerr
 /* Copy to YYRES the contents of YYSTR after stripping away unnecessary
    quotes and backslashes, so that it's suitable for yyerror.  The
-   heuristic is that double-quoting is unnecessary unless the string
+   heuristic is that double-quoting is unnecessary unless the str
    contains an apostrophe, a comma, or backslash (other than
    backslash-backslash).  YYSTR is taken from yytname.  If YYRES is
    null, do not copy; instead, return the length of what the result
@@ -1029,7 +1029,7 @@ void generate_xml_output(char **yyxsp,char **yyxs)
 `----------*/
 // Yijun Yu
 #include <stdio.h>
-char *yytext=NULL;
+char *b4_prefix[]text=NULL;
 
 #ifdef YYPARSE_PARAM
 # if defined (__STDC__) || defined (__cplusplus)
@@ -1086,10 +1086,10 @@ b4_c_function_def([yyparse], [int], b4_parse_param)
   YYLTYPE yyerror_range[2];]])[
 // Yijun Yu: don't forget yyxsp--
 #define YYPOPSTACK   (yyvsp--, yyxsp--, yyssp--]b4_location_if([, yylsp--])[)
-static char * yyxml_string=NULL; // for XML
+static char * yyxml_str=NULL; // for XML
 // for id attribute generation (by William Candillon)
 int _id = 0; 
-char string[256];
+char str[256];
 
   YYSIZE_T yystacksize = YYINITDEPTH;
 
@@ -1264,29 +1264,29 @@ yybackup:
     {
       yytoken = YYTRANSLATE (yychar);
     { // Yijun Yu: process the terminal
-      yyxml_string = (char *) XML_ALLOC(200);
-      strcpy(yyxml_string, "<yaxx:");
-      strcat(yyxml_string, YYTNAME(yytoken));      
+      yyxml_str = (char *) XML_ALLOC(200);
+      strcpy(yyxml_str, "<yaxx:");
+      strcat(yyxml_str, YYTNAME(yytoken));      
 #if 1 //William Candillon
-      strcat(yyxml_string, " id=\"");
-      sprintf(string, "%x", _id);
-      strcat(yyxml_string, string);
-      strcat(yyxml_string, "\"");
+      strcat(yyxml_str, " id=\"");
+      sprintf(str, "%x", _id);
+      strcat(yyxml_str, str);
+      strcat(yyxml_str, "\"");
       _id++;
 #endif
-      strcat(yyxml_string, ">");
+      strcat(yyxml_str, ">");
       if (yytoken < YYNTOKENS) {
 	  if (yytext) {
 		  char *tmp;
 		  tmp=(char *)YYSTACK_ALLOC(6*strlen(yytext)+1); 
 		  replace_special_entities(yytext,tmp);
-		  strcat(yyxml_string, tmp);
+		  strcat(yyxml_str, tmp);
 		  YYSTACK_FREE(tmp);
 	  }
       }
-      strcat(yyxml_string, "</yaxx:");
-      strcat(yyxml_string, YYTNAME(yytoken));
-      strcat(yyxml_string, ">\n");
+      strcat(yyxml_str, "</yaxx:");
+      strcat(yyxml_str, YYTNAME(yytoken));
+      strcat(yyxml_str, ">\n");
     }
       YY_SYMBOL_PRINT ("Next token is", yytoken, &yylval, &yylloc);
     }
@@ -1316,8 +1316,8 @@ yybackup:
     yychar = YYEMPTY;
 
 	// Yijun Yu: update yyxsp
-  *++yyxsp = yyxml_string;
-  yyxml_string = 0;
+  *++yyxsp = yyxml_str;
+  yyxml_str = 0;
   *++yyvsp = yylval;
 ]b4_location_if([  *++yylsp = yylloc;])[
 
@@ -1377,35 +1377,35 @@ yyreduce:
           len += l;
       }
       alloc_len =len+100+2*strlen(YYTNAME(yyr1[yyn]));
-      yyxml_string = (char *) XML_ALLOC(alloc_len);
-      strcpy(yyxml_string, "<yaxx:");
-      strcat(yyxml_string, YYTNAME(yyr1[yyn]));
+      yyxml_str = (char *) XML_ALLOC(alloc_len);
+      strcpy(yyxml_str, "<yaxx:");
+      strcat(yyxml_str, YYTNAME(yyr1[yyn]));
 #if 1 //William Candillon
-      strcat(yyxml_string, " id=\"");
-      sprintf(string, "%x", _id);
-      strcat(yyxml_string, string);
-      strcat(yyxml_string, "\"");
+      strcat(yyxml_str, " id=\"");
+      sprintf(str, "%x", _id);
+      strcat(yyxml_str, str);
+      strcat(yyxml_str, "\"");
       _id++;
 #endif
-      strcat(yyxml_string, ">\n");
+      strcat(yyxml_str, ">\n");
       i = n;
       for (yyi = yyprhs[yyn]; yyrhs[yyi] > 0; yyi++, i--) 
       {
           char * yyxml_str = yyxsp[1-i];
           if (yyxml_str) {
-              strcat(yyxml_string, yyxml_str); 
+              strcat(yyxml_str, yyxml_str); 
               XML_FREE(yyxml_str);
               yyxsp[1-i] = NULL;
           } else {
             fprintf(stderr, "Warning! the %d-th argument is empty", n-i+1);
           }
       }
-      strcat(yyxml_string, "</yaxx:");
-      strcat(yyxml_string, YYTNAME(yyr1[yyn]));
-      strcat(yyxml_string, ">\n");
+      strcat(yyxml_str, "</yaxx:");
+      strcat(yyxml_str, YYTNAME(yyr1[yyn]));
+      strcat(yyxml_str, ">\n");
       yyxsp -= n;
-      *++yyxsp = yyxml_string;
-      yyxml_string = NULL;
+      *++yyxsp = yyxml_str;
+      yyxml_str = NULL;
     }
   switch (yyn)
     ]{
@@ -1526,7 +1526,7 @@ yyerrlab:
 	    {
 	      /* Avoid sprintf, as that infringes on the user's name space.
 		 Don't have undefined behavior even if the translation
-		 produced a string with the wrong number of "%s"s.  */
+		 produced a str with the wrong number of "%s"s.  */
 	      char *yyp = yymsg;
 	      int yyi = 0;
 	      while ((*yyp = *yyf))
@@ -1636,8 +1636,8 @@ yyerrlab1:
   YYDPRINTF ((stderr, "Shifting error token, "));
 
 	// Yijun Yu: yyxsp
-  *++yyxsp = yyxml_string;
-  yyxml_string = NULL;
+  *++yyxsp = yyxml_str;
+  yyxml_str = NULL;
   *++yyvsp = yylval;
 ]b4_location_if([[
   yyerror_range[1] = yylloc;

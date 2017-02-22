@@ -1,6 +1,6 @@
-YACC = ${HOME}/software/bin/bison
+YACC = bison2.1
 LEX  = flex
-YFLAGS  = -d
+YFLAGS  = -d -S yaxx-0.12-bison-2.1.c
 CFLAGS  = -g -O -gdwarf-2 -g3 -DENTITYREPLACE
 LFLAGS  =
 #BIN = ../../bin

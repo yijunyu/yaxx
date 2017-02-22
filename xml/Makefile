@@ -1,7 +1,8 @@
 PREFIX=yy
-YACC = ${HOME}/software/bin/bison
+YACC = bison2.1
 LEX  = flex
-YFLAGS  = -dv -S yaxx-0.11-bison-2.1.c 
+#YFLAGS  = -dv -S yaxx-0.11-bison-2.1.c 
+YFLAGS  = -dv -S yaxx-0.12-bison-2.1.c 
 CFLAGS  = -g -O
 LFLAGS  =
 BIN = .
@@ -17,7 +18,7 @@ all: test-yaxx.xml
 	mv yaxx.xml $*-yaxx.xml
 
 $(BIN)/xmlc : $(OBJ)
-	${CC} $(CFLAGS) $(OBJ) -lfl -o $@
+	${CC} $(CFLAGS) $(OBJ) -ll -o $@
 
 %.tab.c: %.y
 	export BISON_SIMPLE=../bison/src/bison.simple.yaxx

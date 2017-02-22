@@ -18,7 +18,7 @@
  ### Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ###
 
-YACC = ${HOME}/software/bin/bison
+YACC = bison2.1
 YFLAGS  = -dv -S yaxx-0.12-bison-2.1.c
 
 csharp: lex.yy.o csharp.tab.o main.o

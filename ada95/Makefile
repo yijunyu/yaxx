@@ -1,5 +1,5 @@
 PREFIX=ada
-YACC = ${HOME}/software/bin/bison
+YACC = bison2.1
 YFLAGS  = -dv -S yaxx-0.12-bison-2.1.c
 LEX  = flex
 #YFLAGS  = -dv 

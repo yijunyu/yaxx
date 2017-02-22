@@ -1,6 +1,6 @@
 %name-prefix="telos" 
 %{
-extern char * telostext;
+// extern char * telostext;
 #include "header.h"
 int count_element, count_link;
 map <string, OBJECT*> objects;
@@ -26,7 +26,6 @@ map <string, OBJECT*> objects;
 %start telos
 
 %%
-
 telos
     : objects 
     {
