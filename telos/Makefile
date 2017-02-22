@@ -1,7 +1,7 @@
 YACC = bison2.1
 LEX  = flex
-YFLAGS  = -d -S yaxx-0.12-bison-2.1.c
-CFLAGS  = -g -O -gdwarf-2 -g3 -DENTITYREPLACE
+YFLAGS  = -dv -S yaxx-0.12-bison-2.1.c
+CFLAGS  = -g -O -DENTITYREPLACE
 LFLAGS  =
 #BIN = ../../bin
 BIN = .
@@ -44,4 +44,4 @@ clean   :
 
 realclean:
 	${MAKE} clean
-	rm -f telosc* yaxx.dtd optimization.xml
+	rm -f telosc* yaxx.dtd optimization.xml telosyaxx.dtd telosyaxx.xml

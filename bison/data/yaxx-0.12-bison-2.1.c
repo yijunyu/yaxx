@@ -1029,7 +1029,7 @@ void generate_xml_output(char **yyxsp,char **yyxs)
 `----------*/
 // Yijun Yu
 #include <stdio.h>
-char *b4_prefix[]text=NULL;
+extern char *b4_prefix[]text;
 
 #ifdef YYPARSE_PARAM
 # if defined (__STDC__) || defined (__cplusplus)

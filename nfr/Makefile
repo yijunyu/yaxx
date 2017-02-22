@@ -23,3 +23,6 @@ JUNK += lex.yy.c
 
 clean::
 	rm -f ${JUNK}
+
+realclean:: clean
+	rm -rf yaxx.dtd nfr.dSYM

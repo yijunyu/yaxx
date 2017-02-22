@@ -426,7 +426,7 @@ LOCAL int popinclude(void)
 }
 
 static char fortrantext_buf[1000];
-extern char *fortrantext;
+char *fortrantext;
 
 extern "C" {
 int fortranlex(void)

@@ -1,6 +1,5 @@
 %name-prefix="telos" 
 %{
-// extern char * telostext;
 #include "header.h"
 int count_element, count_link;
 map <string, OBJECT*> objects;
@@ -224,14 +223,14 @@ endspec
 
 label
     : ALPHANUM
-    { strcpy($$, telostext); } |LABEL
-    { strcpy($$, telostext); } |NUMBER
-    { strcpy($$, telostext); };
+    { strcpy($$, yytext); } |LABEL
+    { strcpy($$, yytext); } |NUMBER
+    { strcpy($$, yytext); };
 
 NUMBER
     : REAL
-    { strcpy($$, telostext); } |INTEGER
-    { strcpy($$, telostext); };
+    { strcpy($$, yytext); } |INTEGER
+    { strcpy($$, yytext); };
 
 SELECTOR1
     : '!'

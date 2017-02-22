@@ -100,4 +100,5 @@ clean:
 	ln -f ${ONE_HTML_DIR}/manual.html ../README.html
 	rm -rf ${ONE_HTML_DIR} ${SEP_HTML_DIR} ${POSTSCRIPT_DIR}
 
-
+realclean: clean
+	rm one-html/manual.html

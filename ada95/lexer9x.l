@@ -280,11 +280,11 @@ adaerror(s)
                 }
         } else {
                 switch (adachar) {
-                case '\t': fprintf(stderr,"horizontal-tab\n"); return;
-                case '\n': fprintf(stderr,"newline\n"); return;
-                case '\0': fprintf(stderr,"$end\n"); return;
-                case ' ': fprintf(stderr, "(blank)"); return;
-                default : fprintf(stderr,"(char) %c\n", adachar); return;
+                case '\t': fprintf(stderr,"horizontal-tab\n"); return 1;
+                case '\n': fprintf(stderr,"newline\n"); return 1;
+                case '\0': fprintf(stderr,"$end\n"); return 1;
+                case ' ': fprintf(stderr, "(blank)"); return 1;
+                default : fprintf(stderr,"(char) %c\n", adachar); return 1;
                 }
 	}
 }
