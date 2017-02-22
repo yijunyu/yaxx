@@ -1,1 +1,1 @@
-YAXX - Yet Another XML eXtension for Bison
+YAXX - Yet Another XML eXtension to Bison
