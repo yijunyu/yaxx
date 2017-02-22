@@ -1,0 +1,157 @@
+<!ELEMENT TypeSpecifier (TypeName | (TypeName,Dims))>
+<!ELEMENT TypeName (PrimitiveType | QualifiedName)>
+<!ELEMENT ClassNameList (QualifiedName | (ClassNameList,CHAR44,QualifiedName))>
+<!ELEMENT PrimitiveType (BOOLEAN | CHAR | BYTE | SHORT | INT | LONG | FLOAT | DOUBLE | VOID)>
+<!ELEMENT SemiColons (CHAR59 | (SemiColons,CHAR59))>
+<!ELEMENT CompilationUnit (ProgramFile)>
+<!ELEMENT ProgramFile ((PackageStatement,ImportStatements,TypeDeclarations) | (PackageStatement,ImportStatements) | (PackageStatement,TypeDeclarations) | (ImportStatements,TypeDeclarations) | PackageStatement | ImportStatements | TypeDeclarations)>
+<!ELEMENT PackageStatement ((PACKAGE,QualifiedName,SemiColons))>
+<!ELEMENT TypeDeclarations (TypeDeclarationOptSemi | (TypeDeclarations,TypeDeclarationOptSemi))>
+<!ELEMENT TypeDeclarationOptSemi (TypeDeclaration | (TypeDeclaration,SemiColons))>
+<!ELEMENT ImportStatements (ImportStatement | (ImportStatements,ImportStatement))>
+<!ELEMENT ImportStatement ((IMPORT,QualifiedName,SemiColons) | (IMPORT,QualifiedName,CHAR46,CHAR42,SemiColons))>
+<!ELEMENT QualifiedName (IDENTIFIER | (QualifiedName,CHAR46,IDENTIFIER))>
+<!ELEMENT TypeDeclaration ((ClassHeader,CHAR123,FieldDeclarations,CHAR125) | (ClassHeader,CHAR123,CHAR125))>
+<!ELEMENT ClassHeader ((Modifiers,ClassWord,IDENTIFIER,Extends,Interfaces) | (Modifiers,ClassWord,IDENTIFIER,Extends) | (Modifiers,ClassWord,IDENTIFIER,Interfaces) | (ClassWord,IDENTIFIER,Extends,Interfaces) | (Modifiers,ClassWord,IDENTIFIER) | (ClassWord,IDENTIFIER,Extends) | (ClassWord,IDENTIFIER,Interfaces) | (ClassWord,IDENTIFIER))>
+<!ELEMENT Modifiers (Modifier | (Modifiers,Modifier))>
+<!ELEMENT Modifier (ABSTRACT | FINAL | PUBLIC | PROTECTED | PRIVATE | STATIC | TRANSIENT | VOLATILE | NATIVE | SYNCHRONIZED)>
+<!ELEMENT ClassWord (CLASS | INTERFACE)>
+<!ELEMENT Interfaces ((IMPLEMENTS,ClassNameList))>
+<!ELEMENT FieldDeclarations (FieldDeclarationOptSemi | (FieldDeclarations,FieldDeclarationOptSemi))>
+<!ELEMENT FieldDeclarationOptSemi (FieldDeclaration | (FieldDeclaration,SemiColons))>
+<!ELEMENT FieldDeclaration ((FieldVariableDeclaration,CHAR59) | MethodDeclaration | ConstructorDeclaration | StaticInitializer | NonStaticInitializer | TypeDeclaration)>
+<!ELEMENT FieldVariableDeclaration ((Modifiers,TypeSpecifier,VariableDeclarators) | (TypeSpecifier,VariableDeclarators))>
+<!ELEMENT VariableDeclarators (VariableDeclarator | (VariableDeclarators,CHAR44,VariableDeclarator))>
+<!ELEMENT VariableDeclarator (DeclaratorName | (DeclaratorName,CHAR61,VariableInitializer))>
+<!ELEMENT VariableInitializer (Expression | (CHAR123,CHAR125) | (CHAR123,ArrayInitializers,CHAR125))>
+<!ELEMENT ArrayInitializers (VariableInitializer | (ArrayInitializers,CHAR44,VariableInitializer) | (ArrayInitializers,CHAR44))>
+<!ELEMENT MethodDeclaration ((Modifiers,TypeSpecifier,MethodDeclarator,Throws,MethodBody) | (Modifiers,TypeSpecifier,MethodDeclarator,MethodBody) | (TypeSpecifier,MethodDeclarator,Throws,MethodBody) | (TypeSpecifier,MethodDeclarator,MethodBody))>
+<!ELEMENT MethodDeclarator ((DeclaratorName,CHAR40,ParameterList,CHAR41) | (DeclaratorName,CHAR40,CHAR41) | (MethodDeclarator,OP_DIM))>
+<!ELEMENT ParameterList (Parameter | (ParameterList,CHAR44,Parameter))>
+<!ELEMENT Parameter ((TypeSpecifier,DeclaratorName) | (FINAL,TypeSpecifier,DeclaratorName))>
+<!ELEMENT DeclaratorName (IDENTIFIER | (DeclaratorName,OP_DIM))>
+<!ELEMENT Throws ((THROWS,ClassNameList))>
+<!ELEMENT MethodBody (Block | CHAR59)>
+<!ELEMENT ConstructorDeclaration ((Modifiers,ConstructorDeclarator,Throws,Block) | (Modifiers,ConstructorDeclarator,Block) | (ConstructorDeclarator,Throws,Block) | (ConstructorDeclarator,Block))>
+<!ELEMENT ConstructorDeclarator ((IDENTIFIER,CHAR40,ParameterList,CHAR41) | (IDENTIFIER,CHAR40,CHAR41))>
+<!ELEMENT StaticInitializer ((STATIC,Block))>
+<!ELEMENT NonStaticInitializer (Block)>
+<!ELEMENT Extends ((EXTENDS,TypeName) | (Extends,CHAR44,TypeName))>
+<!ELEMENT Block ((CHAR123,LocalVariableDeclarationsAndStatements,CHAR125) | (CHAR123,CHAR125))>
+<!ELEMENT LocalVariableDeclarationsAndStatements (LocalVariableDeclarationOrStatement | (LocalVariableDeclarationsAndStatements,LocalVariableDeclarationOrStatement))>
+<!ELEMENT LocalVariableDeclarationOrStatement (LocalVariableDeclarationStatement | Statement)>
+<!ELEMENT LocalVariableDeclarationStatement ((TypeSpecifier,VariableDeclarators,CHAR59) | (FINAL,TypeSpecifier,VariableDeclarators,CHAR59))>
+<!ELEMENT Statement (EmptyStatement | LabelStatement | (ExpressionStatement,CHAR59) | SelectionStatement | IterationStatement | JumpStatement | GuardingStatement | Block)>
+<!ELEMENT EmptyStatement (CHAR59)>
+<!ELEMENT LabelStatement ((IDENTIFIER,CHAR58) | (CASE,ConstantExpression,CHAR58) | (DEFAULT,CHAR58))>
+<!ELEMENT ExpressionStatement (Expression)>
+<!ELEMENT SelectionStatement ((IF,CHAR40,Expression,CHAR41,Statement) | (IF,CHAR40,Expression,CHAR41,Statement,ELSE,Statement) | (SWITCH,CHAR40,Expression,CHAR41,Block))>
+<!ELEMENT IterationStatement ((WHILE,CHAR40,Expression,CHAR41,Statement) | (DO,Statement,WHILE,CHAR40,Expression,CHAR41,CHAR59) | (FOR,CHAR40,ForInit,ForExpr,ForIncr,CHAR41,Statement) | (FOR,CHAR40,ForInit,ForExpr,CHAR41,Statement))>
+<!ELEMENT ForInit ((ExpressionStatements,CHAR59))>
+<!ELEMENT ABSTRACT (#PCDATA)>
+<!ELEMENT BOOLEAN (#PCDATA)>
+<!ELEMENT BREAK (#PCDATA)>
+<!ELEMENT BYTE (#PCDATA)>
+<!ELEMENT BYVALUE (#PCDATA)>
+<!ELEMENT CASE (#PCDATA)>
+<!ELEMENT CAST (#PCDATA)>
+<!ELEMENT CATCH (#PCDATA)>
+<!ELEMENT CHAR (#PCDATA)>
+<!ELEMENT CLASS (#PCDATA)>
+<!ELEMENT CONST (#PCDATA)>
+<!ELEMENT CONTINUE (#PCDATA)>
+<!ELEMENT DEFAULT (#PCDATA)>
+<!ELEMENT DO (#PCDATA)>
+<!ELEMENT DOUBLE (#PCDATA)>
+<!ELEMENT ELSE (#PCDATA)>
+<!ELEMENT EXTENDS (#PCDATA)>
+<!ELEMENT FINAL (#PCDATA)>
+<!ELEMENT FINALLY (#PCDATA)>
+<!ELEMENT FLOAT (#PCDATA)>
+<!ELEMENT FOR (#PCDATA)>
+<!ELEMENT FUTURE (#PCDATA)>
+<!ELEMENT GENERIC (#PCDATA)>
+<!ELEMENT GOTO (#PCDATA)>
+<!ELEMENT IF (#PCDATA)>
+<!ELEMENT IMPLEMENTS (#PCDATA)>
+<!ELEMENT IMPORT (#PCDATA)>
+<!ELEMENT INNER (#PCDATA)>
+<!ELEMENT INSTANCEOF (#PCDATA)>
+<!ELEMENT INT (#PCDATA)>
+<!ELEMENT INTERFACE (#PCDATA)>
+<!ELEMENT LONG (#PCDATA)>
+<!ELEMENT NATIVE (#PCDATA)>
+<!ELEMENT NEW (#PCDATA)>
+<!ELEMENT JNULL (#PCDATA)>
+<!ELEMENT OPERATOR (#PCDATA)>
+<!ELEMENT OUTER (#PCDATA)>
+<!ELEMENT PACKAGE (#PCDATA)>
+<!ELEMENT PRIVATE (#PCDATA)>
+<!ELEMENT PROTECTED (#PCDATA)>
+<!ELEMENT PUBLIC (#PCDATA)>
+<!ELEMENT REST (#PCDATA)>
+<!ELEMENT RETURN (#PCDATA)>
+<!ELEMENT SHORT (#PCDATA)>
+<!ELEMENT STATIC (#PCDATA)>
+<!ELEMENT SUPER (#PCDATA)>
+<!ELEMENT SWITCH (#PCDATA)>
+<!ELEMENT SYNCHRONIZED (#PCDATA)>
+<!ELEMENT THIS (#PCDATA)>
+<!ELEMENT THROW (#PCDATA)>
+<!ELEMENT THROWS (#PCDATA)>
+<!ELEMENT TRANSIENT (#PCDATA)>
+<!ELEMENT TRY (#PCDATA)>
+<!ELEMENT VAR (#PCDATA)>
+<!ELEMENT VOID (#PCDATA)>
+<!ELEMENT VOLATILE (#PCDATA)>
+<!ELEMENT WHILE (#PCDATA)>
+<!ELEMENT OP_INC (#PCDATA)>
+<!ELEMENT OP_DEC (#PCDATA)>
+<!ELEMENT OP_SHL (#PCDATA)>
+<!ELEMENT OP_SHR (#PCDATA)>
+<!ELEMENT OP_SHRR (#PCDATA)>
+<!ELEMENT OP_GE (#PCDATA)>
+<!ELEMENT OP_LE (#PCDATA)>
+<!ELEMENT OP_EQ (#PCDATA)>
+<!ELEMENT OP_NE (#PCDATA)>
+<!ELEMENT OP_LAND (#PCDATA)>
+<!ELEMENT OP_LOR (#PCDATA)>
+<!ELEMENT OP_DIM (#PCDATA)>
+<!ELEMENT ASS_MUL (#PCDATA)>
+<!ELEMENT ASS_DIV (#PCDATA)>
+<!ELEMENT ASS_MOD (#PCDATA)>
+<!ELEMENT ASS_ADD (#PCDATA)>
+<!ELEMENT ASS_SUB (#PCDATA)>
+<!ELEMENT ASS_SHL (#PCDATA)>
+<!ELEMENT ASS_SHR (#PCDATA)>
+<!ELEMENT ASS_SHRR (#PCDATA)>
+<!ELEMENT ASS_AND (#PCDATA)>
+<!ELEMENT ASS_XOR (#PCDATA)>
+<!ELEMENT ASS_OR (#PCDATA)>
+<!ELEMENT IDENTIFIER (#PCDATA)>
+<!ELEMENT LITERAL (#PCDATA)>
+<!ELEMENT BOOLLIT (#PCDATA)>
+<!ELEMENT CHAR44 (#PCDATA)>
+<!ELEMENT CHAR59 (#PCDATA)>
+<!ELEMENT CHAR46 (#PCDATA)>
+<!ELEMENT CHAR42 (#PCDATA)>
+<!ELEMENT CHAR123 (#PCDATA)>
+<!ELEMENT CHAR125 (#PCDATA)>
+<!ELEMENT CHAR61 (#PCDATA)>
+<!ELEMENT CHAR40 (#PCDATA)>
+<!ELEMENT CHAR41 (#PCDATA)>
+<!ELEMENT CHAR58 (#PCDATA)>
+<!ELEMENT CHAR91 (#PCDATA)>
+<!ELEMENT CHAR93 (#PCDATA)>
+<!ELEMENT CHAR126 (#PCDATA)>
+<!ELEMENT CHAR33 (#PCDATA)>
+<!ELEMENT CHAR43 (#PCDATA)>
+<!ELEMENT CHAR45 (#PCDATA)>
+<!ELEMENT CHAR47 (#PCDATA)>
+<!ELEMENT CHAR37 (#PCDATA)>
+<!ELEMENT CHAR60 (#PCDATA)>
+<!ELEMENT CHAR62 (#PCDATA)>
+<!ELEMENT CHAR38 (#PCDATA)>
+<!ELEMENT CHAR94 (#PCDATA)>
+<!ELEMENT CHAR124 (#PCDATA)>
+<!ELEMENT CHAR63 (#PCDATA)>

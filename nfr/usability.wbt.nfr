@@ -1,0 +1,34 @@
+/* build for reuse=> Media Shop */
+Usability for Interface at Language, Custom, Operations, Usage
+ {
+  Conventions() => Communicativeness for Language at Words
+  {
+     UsingNaturalLanguage() => LanguageCustomization for Words 
+	at "Course Pattern", Email, "Chat Room", "Newsgroup Forum", Tutorial, Lessons
+  }  
+  and Conventions() => Communicativeness for Custom at WordsOrder
+  {
+     UsingClassifications() => WordsOrderCustomization for WordsOrder
+  }
+  and MemorizingDifficulty() => Operability for Operations 
+	at LookAndFeel, Font, Navigation
+  {
+	    UsingMultipleWidgets()  => SimilarLookAndFeel for LookAndFeel
+		at WBT
+	and UsingMultipleFonts()    => StylizeFont for Font
+		at Cart, Product, Account, Stock
+	and UsingMultipleActions()  => HierarchicalMenus for Navigation
+		at Managing, Searching, Reporting
+  }
+  and Training for Usage at UseScenarios, Actions, Tutorial
+  {
+	    ProvideUserManual for UseScenarios 
+		at "Common Lesson Structure"
+		=> -Productivity
+        and ProvideContextSensitiveHelp for Actions 
+		at WBT
+		=> -Productivity
+	and LearnByExamples for Tutorial 
+		=> -Productivity
+  } => -Productivity
+ }  

@@ -1,0 +1,10 @@
+/* build for reuse: Tuna fish */
+Speed for Shape at Surface
+ {
+  Streamline for Surface at Head, Body, Tail
+  {
+    A for Head => +Complexity
+  and    O for Body
+  and    v for Tail => +Complexity
+  }  => +Complexity
+ }  => +Complexity

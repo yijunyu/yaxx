@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="yaxx.xsl"?><!DOCTYPE executable_program id="94" SYSTEM "fortranyaxx.dtd">
+<yaxx:executable_program id="94" xmlns:yaxx="urn:YAcc-Xml-eXtension">
+<yaxx:subprogram id="93">
+<yaxx:subprogram_stmnts id="92">
+<yaxx:statements id="8b">
+<yaxx:statements id="81">
+<yaxx:statements id="49">
+<yaxx:statements id="22">
+<yaxx:terminated_statement id="21">
+<yaxx:statement id="1f">
+<yaxx:thislabel id="1">
+<yaxx:SLABEL id="0">
+      </yaxx:SLABEL>
+</yaxx:thislabel>
+<yaxx:spec id="1e">
+<yaxx:dcl id="1c">
+<yaxx:type id="7">
+<yaxx:typespec id="4">
+<yaxx:typename id="3">
+<yaxx:SDIMENSION id="2">dimension</yaxx:SDIMENSION>
+</yaxx:typename>
+</yaxx:typespec>
+<yaxx:lengspec id="6">
+</yaxx:lengspec>
+</yaxx:type>
+<yaxx:opt_comma id="9">
+</yaxx:opt_comma>
+<yaxx:name id="b">
+<yaxx:SNAME id="a">a</yaxx:SNAME>
+</yaxx:name>
+<yaxx:in_dcl id="c">
+</yaxx:in_dcl>
+<yaxx:new_dcl id="d">
+</yaxx:new_dcl>
+<yaxx:dims id="19">
+<yaxx:SLPAR id="e">(</yaxx:SLPAR>
+<yaxx:dimlist id="17">
+<yaxx:dim id="16">
+<yaxx:ubound id="15">
+<yaxx:expr id="13">
+<yaxx:uexpr id="12">
+<yaxx:simple_const id="11">
+<yaxx:simple_const_int id="10">
+<yaxx:SICON id="f">100</yaxx:SICON>
+</yaxx:simple_const_int>
+</yaxx:simple_const>
+</yaxx:uexpr>
+</yaxx:expr>
+</yaxx:ubound>
+</yaxx:dim>
+</yaxx:dimlist>
+<yaxx:SRPAR id="18">)</yaxx:SRPAR>
+</yaxx:dims>
+<yaxx:lengspec id="1b">
+</yaxx:lengspec>
+</yaxx:dcl>
+</yaxx:spec>
+</yaxx:statement>
+<yaxx:SEOS id="20"></yaxx:SEOS>
+</yaxx:terminated_statement>
+</yaxx:statements>
+<yaxx:terminated_statement id="48">
+<yaxx:statement id="46">
+<yaxx:thislabel id="24">
+<yaxx:SLABEL id="23">
+      </yaxx:SLABEL>
+</yaxx:thislabel>
+<yaxx:exec id="45">
+<yaxx:SDO id="25">do</yaxx:SDO>
+<yaxx:end_spec id="27">
+</yaxx:end_spec>
+<yaxx:intonlyon id="29">
+</yaxx:intonlyon>
+<yaxx:label id="2b">
+<yaxx:SICON id="2a">10</yaxx:SICON>
+</yaxx:label>
+<yaxx:intonlyoff id="2c">
+</yaxx:intonlyoff>
+<yaxx:opt_comma id="2e">
+</yaxx:opt_comma>
+<yaxx:dospecw id="44">
+<yaxx:dospec id="43">
+<yaxx:name id="30">
+<yaxx:SNAME id="2f">i</yaxx:SNAME>
+</yaxx:name>
+<yaxx:SEQUALS id="31">=</yaxx:SEQUALS>
+<yaxx:exprlist id="41">
+<yaxx:exprlist id="38">
+<yaxx:expr id="36">
+<yaxx:uexpr id="35">
+<yaxx:simple_const id="34">
+<yaxx:simple_const_int id="33">
+<yaxx:SICON id="32">1</yaxx:SICON>
+</yaxx:simple_const_int>
+</yaxx:simple_const>
+</yaxx:uexpr>
+</yaxx:expr>
+</yaxx:exprlist>
+<yaxx:SCOMMA id="39">,</yaxx:SCOMMA>
+<yaxx:expr id="3f">
+<yaxx:uexpr id="3e">
+<yaxx:lhs id="3d">
+<yaxx:name id="3b">
+<yaxx:SNAME id="3a">n</yaxx:SNAME>
+</yaxx:name>
+</yaxx:lhs>
+</yaxx:uexpr>
+</yaxx:expr>
+</yaxx:exprlist>
+</yaxx:dospec>
+</yaxx:dospecw>
+</yaxx:exec>
+</yaxx:statement>
+<yaxx:SEOS id="47"></yaxx:SEOS>
+</yaxx:terminated_statement>
+</yaxx:statements>
+<yaxx:terminated_statement id="80">
+<yaxx:statement id="7e">
+<yaxx:thislabel id="4b">
+<yaxx:SLABEL id="4a">
+      </yaxx:SLABEL>
+</yaxx:thislabel>
+<yaxx:exec id="7d">
+<yaxx:iffable id="7c">
+<yaxx:let id="4d">
+<yaxx:SLET id="4c"></yaxx:SLET>
+</yaxx:let>
+<yaxx:lhs id="5d">
+<yaxx:name id="4f">
+<yaxx:SNAME id="4e">a</yaxx:SNAME>
+</yaxx:name>
+<yaxx:SLPAR id="50">(</yaxx:SLPAR>
+<yaxx:funarglist id="5a">
+<yaxx:funargs id="58">
+<yaxx:expr id="56">
+<yaxx:uexpr id="55">
+<yaxx:lhs id="54">
+<yaxx:name id="52">
+<yaxx:SNAME id="51">i</yaxx:SNAME>
+</yaxx:name>
+</yaxx:lhs>
+</yaxx:uexpr>
+</yaxx:expr>
+</yaxx:funargs>
+</yaxx:funarglist>
+<yaxx:SRPAR id="5b">)</yaxx:SRPAR>
+</yaxx:lhs>
+<yaxx:SEQUALS id="5e">=</yaxx:SEQUALS>
+<yaxx:expr id="7a">
+<yaxx:uexpr id="79">
+<yaxx:lhs id="78">
+<yaxx:name id="60">
+<yaxx:SNAME id="5f">a</yaxx:SNAME>
+</yaxx:name>
+<yaxx:SLPAR id="61">(</yaxx:SLPAR>
+<yaxx:funarglist id="75">
+<yaxx:funargs id="73">
+<yaxx:expr id="71">
+<yaxx:uexpr id="70">
+<yaxx:expr id="67">
+<yaxx:uexpr id="66">
+<yaxx:lhs id="65">
+<yaxx:name id="63">
+<yaxx:SNAME id="62">i</yaxx:SNAME>
+</yaxx:name>
+</yaxx:lhs>
+</yaxx:uexpr>
+</yaxx:expr>
+<yaxx:addop id="69">
+<yaxx:SMINUS id="68">-</yaxx:SMINUS>
+</yaxx:addop>
+<yaxx:expr id="6e">
+<yaxx:uexpr id="6d">
+<yaxx:simple_const id="6c">
+<yaxx:simple_const_int id="6b">
+<yaxx:SICON id="6a">1</yaxx:SICON>
+</yaxx:simple_const_int>
+</yaxx:simple_const>
+</yaxx:uexpr>
+</yaxx:expr>
+</yaxx:uexpr>
+</yaxx:expr>
+</yaxx:funargs>
+</yaxx:funarglist>
+<yaxx:SRPAR id="76">)</yaxx:SRPAR>
+</yaxx:lhs>
+</yaxx:uexpr>
+</yaxx:expr>
+</yaxx:iffable>
+</yaxx:exec>
+</yaxx:statement>
+<yaxx:SEOS id="7f"></yaxx:SEOS>
+</yaxx:terminated_statement>
+</yaxx:statements>
+<yaxx:terminated_statement id="8a">
+<yaxx:statement id="88">
+<yaxx:thislabel id="83">
+<yaxx:SLABEL id="82">
+ 10   </yaxx:SLABEL>
+</yaxx:thislabel>
+<yaxx:exec id="87">
+<yaxx:iffable id="86">
+<yaxx:SCONTINUE id="84">continue</yaxx:SCONTINUE>
+<yaxx:end_spec id="85">
+</yaxx:end_spec>
+</yaxx:iffable>
+</yaxx:exec>
+</yaxx:statement>
+<yaxx:SEOS id="89"></yaxx:SEOS>
+</yaxx:terminated_statement>
+</yaxx:statements>
+<yaxx:end_statement id="91">
+<yaxx:thislabel id="8d">
+<yaxx:SLABEL id="8c">
+      </yaxx:SLABEL>
+</yaxx:thislabel>
+<yaxx:SEND id="8e">end</yaxx:SEND>
+<yaxx:end_spec id="8f">
+</yaxx:end_spec>
+<yaxx:SEOS id="90"></yaxx:SEOS>
+</yaxx:end_statement>
+</yaxx:subprogram_stmnts>
+</yaxx:subprogram>
+</yaxx:executable_program>
+

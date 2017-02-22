@@ -1,0 +1,31 @@
+<!ELEMENT module (opspacs,sxml,opspacs,element,opspacs)>
+<!ELEMENT opspacs EMPTY><!ELEMENT opspacs (opspacs,SPACES)>
+<!ELEMENT sxml (SXML)>
+<!ELEMENT stag (STAG)>
+<!ELEMENT etag (ETAG)>
+<!ELEMENT ctag (CTAG)>
+<!ELEMENT xtag (XTAG)>
+<!ELEMENT ztag (ZTAG)>
+<!ELEMENT idnt (IDNT)>
+<!ELEMENT strg (STRG)>
+<!ELEMENT blocks EMPTY><!ELEMENT blocks (block,blocks)>
+<!ELEMENT block (SPACES)>
+<!ELEMENT block (TEXT)>
+<!ELEMENT block (element)>
+<!ELEMENT element (stag,options,etag,blocks,ctag,etag)>
+<!ELEMENT element (stag,options,xtag)>
+<!ELEMENT element (stag,options,etag,blocks,ztag)>
+<!ELEMENT element (error,etag)>
+<!ELEMENT options EMPTY><!ELEMENT options (options,option)>
+<!ELEMENT option (idnt,CHAR61,strg)>
+<!ELEMENT SPACES (#PCDATA)>
+<!ELEMENT SXML (#PCDATA)>
+<!ELEMENT STAG (#PCDATA)>
+<!ELEMENT ETAG (#PCDATA)>
+<!ELEMENT CTAG (#PCDATA)>
+<!ELEMENT XTAG (#PCDATA)>
+<!ELEMENT ZTAG (#PCDATA)>
+<!ELEMENT TEXT (#PCDATA)>
+<!ELEMENT IDNT (#PCDATA)>
+<!ELEMENT STRG (#PCDATA)>
+<!ELEMENT CHAR61 (#PCDATA)>

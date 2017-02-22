@@ -1,0 +1,17 @@
+C 8 8
+N NO NO LOC
+N NO TOTAL V(G)
+N NO NO Knobs
+N TOTAL NO volume
+N NO NO code complexity
+N NO NO information content
+N TOTAL NO code size
+N TOTAL NO length
+R AND 4 5
+R AND 4 6
+R + 5 0
+R + 6 0
+R AND 5 7
+R ++ 6 3
+R AND 5 1
+R + 5 2

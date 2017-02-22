@@ -1,0 +1,332 @@
+<!ELEMENT goal_symbol (compilation)>
+<!ELEMENT pragma ((PRAGMA,identifier,CHAR59) | (PRAGMA,simple_name,CHAR40,pragma_arg_s,CHAR41,CHAR59))>
+<!ELEMENT pragma_arg_s (pragma_arg | (pragma_arg_s,CHAR44,pragma_arg))>
+<!ELEMENT pragma_arg (expression | (simple_name,RIGHT_SHAFT,expression))>
+<!ELEMENT pragma_s (EMPTY | (pragma_s,pragma))>
+<!ELEMENT decl (object_decl | number_decl | type_decl | subtype_decl | subprog_decl | pkg_decl | task_decl | prot_decl | exception_decl | rename_decl | generic_decl | body_stub | (error,CHAR59))>
+<!ELEMENT object_decl ((def_id_s,CHAR58,object_qualifier_opt,object_subtype_def,init_opt,CHAR59))>
+<!ELEMENT def_id_s (def_id | (def_id_s,CHAR44,def_id))>
+<!ELEMENT def_id (identifier)>
+<!ELEMENT object_qualifier_opt (EMPTY | ALIASED | CONSTANT | (ALIASED,CONSTANT))>
+<!ELEMENT object_subtype_def (subtype_ind | array_type)>
+<!ELEMENT init_opt (EMPTY | (IS_ASSIGNED,expression))>
+<!ELEMENT number_decl ((def_id_s,CHAR58,CONSTANT,IS_ASSIGNED,expression,CHAR59))>
+<!ELEMENT type_decl ((TYPE,identifier,discrim_part_opt,type_completion,CHAR59))>
+<!ELEMENT discrim_part_opt (EMPTY | discrim_part | (CHAR40,BOX,CHAR41))>
+<!ELEMENT type_completion (EMPTY | (IS,type_def))>
+<!ELEMENT type_def (enumeration_type | integer_type | real_type | array_type | record_type | access_type | derived_type | private_type)>
+<!ELEMENT subtype_decl ((SUBTYPE,identifier,IS,subtype_ind,CHAR59))>
+<!ELEMENT subtype_ind ((name,constraint) | name)>
+<!ELEMENT constraint (range_constraint | decimal_digits_constraint)>
+<!ELEMENT decimal_digits_constraint ((DIGITS,expression,range_constr_opt))>
+<!ELEMENT derived_type ((NEW,subtype_ind) | (NEW,subtype_ind,WITH,PRIVATE) | (NEW,subtype_ind,WITH,record_def) | (ABSTRACT,NEW,subtype_ind,WITH,PRIVATE) | (ABSTRACT,NEW,subtype_ind,WITH,record_def))>
+<!ELEMENT range_constraint ((RANGE,range))>
+<!ELEMENT range ((simple_expression,DOT_DOT,simple_expression) | (name,TIC,RANGE) | (name,TIC,RANGE,CHAR40,expression,CHAR41))>
+<!ELEMENT enumeration_type ((CHAR40,enum_id_s,CHAR41))>
+<!ELEMENT enum_id_s (enum_id | (enum_id_s,CHAR44,enum_id))>
+<!ELEMENT enum_id (identifier | char_lit)>
+<!ELEMENT integer_type (range_spec | (MOD,expression))>
+<!ELEMENT range_spec (range_constraint)>
+<!ELEMENT range_spec_opt (EMPTY | range_spec)>
+<!ELEMENT real_type (float_type | fixed_type)>
+<!ELEMENT float_type ((DIGITS,expression,range_spec_opt))>
+<!ELEMENT fixed_type ((DELTA,expression,range_spec) | (DELTA,expression,DIGITS,expression,range_spec_opt))>
+<!ELEMENT array_type (unconstr_array_type | constr_array_type)>
+<!ELEMENT unconstr_array_type ((ARRAY,CHAR40,index_s,CHAR41,OF,component_subtype_def))>
+<!ELEMENT constr_array_type ((ARRAY,iter_index_constraint,OF,component_subtype_def))>
+<!ELEMENT component_subtype_def ((aliased_opt,subtype_ind))>
+<!ELEMENT aliased_opt (EMPTY | ALIASED)>
+<!ELEMENT index_s (index | (index_s,CHAR44,index))>
+<!ELEMENT index ((name,RANGE,BOX))>
+<!ELEMENT iter_index_constraint ((CHAR40,iter_discrete_range_s,CHAR41))>
+<!ELEMENT iter_discrete_range_s (discrete_range | (iter_discrete_range_s,CHAR44,discrete_range))>
+<!ELEMENT discrete_range ((name,range_constr_opt) | range)>
+<!ELEMENT range_constr_opt (EMPTY | range_constraint)>
+<!ELEMENT record_type ((tagged_opt,limited_opt,record_def))>
+<!ELEMENT record_def ((RECORD,pragma_s,comp_list,END,RECORD) | (NuLL,RECORD))>
+<!ELEMENT tagged_opt (EMPTY | TAGGED | (ABSTRACT,TAGGED))>
+<!ELEMENT comp_list ((comp_decl_s,variant_part_opt) | (variant_part,pragma_s) | (NuLL,CHAR59,pragma_s))>
+<!ELEMENT comp_decl_s (comp_decl | (comp_decl_s,pragma_s,comp_decl))>
+<!ELEMENT variant_part_opt (pragma_s | (pragma_s,variant_part,pragma_s))>
+<!ELEMENT comp_decl ((def_id_s,CHAR58,component_subtype_def,init_opt,CHAR59) | (error,CHAR59))>
+<!ELEMENT discrim_part ((CHAR40,discrim_spec_s,CHAR41))>
+<!ELEMENT discrim_spec_s (discrim_spec | (discrim_spec_s,CHAR59,discrim_spec))>
+<!ELEMENT discrim_spec ((def_id_s,CHAR58,access_opt,mark,init_opt) | error)>
+<!ELEMENT access_opt (EMPTY | ACCESS)>
+<!ELEMENT variant_part ((CASE,simple_name,IS,pragma_s,variant_s,END,CASE,CHAR59))>
+<!ELEMENT variant_s (variant | (variant_s,variant))>
+<!ELEMENT variant ((WHEN,choice_s,RIGHT_SHAFT,pragma_s,comp_list))>
+<!ELEMENT choice_s (choice | (choice_s,CHAR124,choice))>
+<!ELEMENT choice (expression | discrete_with_range | OTHERS)>
+<!ELEMENT discrete_with_range ((name,range_constraint) | range)>
+<!ELEMENT access_type ((ACCESS,subtype_ind) | (ACCESS,CONSTANT,subtype_ind) | (ACCESS,ALL,subtype_ind) | (ACCESS,prot_opt,PROCEDURE,formal_part_opt) | (ACCESS,prot_opt,FUNCTION,formal_part_opt,RETURN,mark))>
+<!ELEMENT prot_opt (EMPTY | PROTECTED)>
+<!ELEMENT decl_part (EMPTY | decl_item_or_body_s1)>
+<!ELEMENT decl_item_s (EMPTY | decl_item_s1)>
+<!ELEMENT decl_item_s1 (decl_item | (decl_item_s1,decl_item))>
+<!ELEMENT decl_item (decl | use_clause | rep_spec | pragma)>
+<!ELEMENT decl_item_or_body_s1 (decl_item_or_body | (decl_item_or_body_s1,decl_item_or_body))>
+<!ELEMENT decl_item_or_body (body | decl_item)>
+<!ELEMENT body (subprog_body | pkg_body | task_body | prot_body)>
+<!ELEMENT name (simple_name | indexed_comp | selected_comp | attribute | operator_symbol)>
+<!ELEMENT mark (simple_name | (mark,TIC,attribute_id) | (mark,CHAR46,simple_name))>
+<!ELEMENT simple_name (identifier)>
+<!ELEMENT compound_name (simple_name | (compound_name,CHAR46,simple_name))>
+<!ELEMENT c_name_list (compound_name | (c_name_list,CHAR44,compound_name))>
+<!ELEMENT used_char (char_lit)>
+<!ELEMENT operator_symbol (char_string)>
+<!ELEMENT indexed_comp ((name,CHAR40,value_s,CHAR41))>
+<!ELEMENT value_s (value | (value_s,CHAR44,value))>
+<!ELEMENT value (expression | comp_assoc | discrete_with_range | error)>
+<!ELEMENT selected_comp ((name,CHAR46,simple_name) | (name,CHAR46,used_char) | (name,CHAR46,operator_symbol) | (name,CHAR46,ALL))>
+<!ELEMENT attribute ((name,TIC,attribute_id))>
+<!ELEMENT attribute_id (identifier | DIGITS | DELTA | ACCESS)>
+<!ELEMENT literal (numeric_lit | used_char | NuLL)>
+<!ELEMENT aggregate ((CHAR40,comp_assoc,CHAR41) | (CHAR40,value_s_2,CHAR41) | (CHAR40,expression,WITH,value_s,CHAR41) | (CHAR40,expression,WITH,NuLL,RECORD,CHAR41) | (CHAR40,NuLL,RECORD,CHAR41))>
+<!ELEMENT value_s_2 ((value,CHAR44,value) | (value_s_2,CHAR44,value))>
+<!ELEMENT comp_assoc ((choice_s,RIGHT_SHAFT,expression))>
+<!ELEMENT expression (relation | (expression,logical,relation) | (expression,short_circuit,relation))>
+<!ELEMENT logical (AND | OR | XOR)>
+<!ELEMENT short_circuit ((AND,THEN) | (OR,ELSE))>
+<!ELEMENT relation (simple_expression | (simple_expression,relational,simple_expression) | (simple_expression,membership,range) | (simple_expression,membership,name))>
+<!ELEMENT relational (CHAR61 | NE | CHAR60 | LT_EQ | CHAR62 | GE)>
+<!ELEMENT membership (IN | (NOT,IN))>
+<!ELEMENT simple_expression ((unary,term) | term | (simple_expression,adding,term))>
+<!ELEMENT unary (CHAR43 | CHAR45)>
+<!ELEMENT adding (CHAR43 | CHAR45 | CHAR38)>
+<!ELEMENT term (factor | (term,multiplying,factor))>
+<!ELEMENT multiplying (CHAR42 | CHAR47 | MOD | REM)>
+<!ELEMENT factor (primary | (NOT,primary) | (ABS,primary) | (primary,EXPON,primary))>
+<!ELEMENT primary (literal | name | allocator | qualified | parenthesized_primary)>
+<!ELEMENT parenthesized_primary (aggregate | (CHAR40,expression,CHAR41))>
+<!ELEMENT qualified ((name,TIC,parenthesized_primary))>
+<!ELEMENT allocator ((NEW,name) | (NEW,qualified))>
+<!ELEMENT statement_s (statement | (statement_s,statement))>
+<!ELEMENT statement (unlabeled | (label,statement))>
+<!ELEMENT unlabeled (simple_stmt | compound_stmt | pragma)>
+<!ELEMENT simple_stmt (null_stmt | assign_stmt | exit_stmt | return_stmt | goto_stmt | procedure_call | delay_stmt | abort_stmt | raise_stmt | code_stmt | requeue_stmt | (error,CHAR59))>
+<!ELEMENT compound_stmt (if_stmt | case_stmt | loop_stmt | block | accept_stmt | select_stmt)>
+<!ELEMENT label ((LT_LT,identifier,GT_GT))>
+<!ELEMENT null_stmt ((NuLL,CHAR59))>
+<!ELEMENT assign_stmt ((name,IS_ASSIGNED,expression,CHAR59))>
+<!ELEMENT if_stmt ((IF,cond_clause_s,else_opt,END,IF,CHAR59))>
+<!ELEMENT cond_clause_s (cond_clause | (cond_clause_s,ELSIF,cond_clause))>
+<!ELEMENT cond_clause ((cond_part,statement_s))>
+<!ELEMENT cond_part ((condition,THEN))>
+<!ELEMENT condition (expression)>
+<!ELEMENT else_opt (EMPTY | (ELSE,statement_s))>
+<!ELEMENT case_stmt ((case_hdr,pragma_s,alternative_s,END,CASE,CHAR59))>
+<!ELEMENT case_hdr ((CASE,expression,IS))>
+<!ELEMENT alternative_s (EMPTY | (alternative_s,alternative))>
+<!ELEMENT alternative ((WHEN,choice_s,RIGHT_SHAFT,statement_s))>
+<!ELEMENT loop_stmt ((label_opt,iteration,basic_loop,id_opt,CHAR59))>
+<!ELEMENT label_opt (EMPTY | (identifier,CHAR58))>
+<!ELEMENT iteration (EMPTY | (WHILE,condition) | (iter_part,reverse_opt,discrete_range))>
+<!ELEMENT iter_part ((FOR,identifier,IN))>
+<!ELEMENT reverse_opt (EMPTY | REVERSE)>
+<!ELEMENT basic_loop ((LOOP,statement_s,END,LOOP))>
+<!ELEMENT id_opt (EMPTY | designator)>
+<!ELEMENT block ((label_opt,block_decl,block_body,END,id_opt,CHAR59))>
+<!ELEMENT block_decl (EMPTY | (DECLARE,decl_part))>
+<!ELEMENT block_body ((BEGiN,handled_stmt_s))>
+<!ELEMENT handled_stmt_s ((statement_s,except_handler_part_opt))>
+<!ELEMENT except_handler_part_opt (EMPTY | except_handler_part)>
+<!ELEMENT exit_stmt ((EXIT,name_opt,when_opt,CHAR59))>
+<!ELEMENT name_opt (EMPTY | name)>
+<!ELEMENT when_opt (EMPTY | (WHEN,condition))>
+<!ELEMENT return_stmt ((RETURN,CHAR59) | (RETURN,expression,CHAR59))>
+<!ELEMENT goto_stmt ((GOTO,name,CHAR59))>
+<!ELEMENT subprog_decl ((subprog_spec,CHAR59) | (generic_subp_inst,CHAR59) | (subprog_spec_is_push,ABSTRACT,CHAR59))>
+<!ELEMENT subprog_spec ((PROCEDURE,compound_name,formal_part_opt) | (FUNCTION,designator,formal_part_opt,RETURN,name) | (FUNCTION,designator))>
+<!ELEMENT designator (compound_name | char_string)>
+<!ELEMENT formal_part_opt (EMPTY | formal_part)>
+<!ELEMENT formal_part ((CHAR40,param_s,CHAR41))>
+<!ELEMENT param_s (param | (param_s,CHAR59,param))>
+<!ELEMENT param ((def_id_s,CHAR58,mode,mark,init_opt) | error)>
+<!ELEMENT mode (EMPTY | IN | OUT | (IN,OUT) | ACCESS)>
+<!ELEMENT subprog_spec_is_push ((subprog_spec,IS))>
+<!ELEMENT subprog_body ((subprog_spec_is_push,decl_part,block_body,END,id_opt,CHAR59))>
+<!ELEMENT procedure_call ((name,CHAR59))>
+<!ELEMENT pkg_decl ((pkg_spec,CHAR59) | (generic_pkg_inst,CHAR59))>
+<!ELEMENT pkg_spec ((PACKAGE,compound_name,IS,decl_item_s,private_part,END,c_id_opt))>
+<!ELEMENT private_part (EMPTY | (PRIVATE,decl_item_s))>
+<!ELEMENT c_id_opt (EMPTY | compound_name)>
+<!ELEMENT pkg_body ((PACKAGE,BODY,compound_name,IS,decl_part,body_opt,END,c_id_opt,CHAR59))>
+<!ELEMENT body_opt (EMPTY | block_body)>
+<!ELEMENT private_type ((tagged_opt,limited_opt,PRIVATE))>
+<!ELEMENT limited_opt (EMPTY | LIMITED)>
+<!ELEMENT use_clause ((USE,name_s,CHAR59) | (USE,TYPE,name_s,CHAR59))>
+<!ELEMENT name_s (name | (name_s,CHAR44,name))>
+<!ELEMENT rename_decl ((def_id_s,CHAR58,object_qualifier_opt,subtype_ind,renames,CHAR59) | (def_id_s,CHAR58,EXCEPTION,renames,CHAR59) | rename_unit)>
+<!ELEMENT rename_unit ((PACKAGE,compound_name,renames,CHAR59) | (subprog_spec,renames,CHAR59) | (generic_formal_part,PACKAGE,compound_name,renames,CHAR59) | (generic_formal_part,subprog_spec,renames,CHAR59))>
+<!ELEMENT renames ((RENAMES,name))>
+<!ELEMENT task_decl ((task_spec,CHAR59))>
+<!ELEMENT task_spec ((TASK,simple_name,task_def) | (TASK,TYPE,simple_name,discrim_part_opt,task_def))>
+<!ELEMENT task_def (EMPTY | (IS,entry_decl_s,rep_spec_s,task_private_opt,END,id_opt))>
+<!ELEMENT task_private_opt (EMPTY | (PRIVATE,entry_decl_s,rep_spec_s))>
+<!ELEMENT task_body ((TASK,BODY,simple_name,IS,decl_part,block_body,END,id_opt,CHAR59))>
+<!ELEMENT prot_decl ((prot_spec,CHAR59))>
+<!ELEMENT prot_spec ((PROTECTED,identifier,prot_def) | (PROTECTED,TYPE,simple_name,discrim_part_opt,prot_def))>
+<!ELEMENT prot_def ((IS,prot_op_decl_s,prot_private_opt,END,id_opt))>
+<!ELEMENT prot_private_opt (EMPTY | (PRIVATE,prot_elem_decl_s))>
+<!ELEMENT prot_op_decl_s (EMPTY | (prot_op_decl_s,prot_op_decl))>
+<!ELEMENT prot_op_decl (entry_decl | (subprog_spec,CHAR59) | rep_spec | pragma)>
+<!ELEMENT prot_elem_decl_s (EMPTY | (prot_elem_decl_s,prot_elem_decl))>
+<!ELEMENT prot_elem_decl (prot_op_decl | comp_decl)>
+<!ELEMENT prot_body ((PROTECTED,BODY,simple_name,IS,prot_op_body_s,END,id_opt,CHAR59))>
+<!ELEMENT prot_op_body_s (pragma_s | (prot_op_body_s,prot_op_body,pragma_s))>
+<!ELEMENT prot_op_body (entry_body | subprog_body | (subprog_spec,CHAR59))>
+<!ELEMENT entry_decl_s (pragma_s | (entry_decl_s,entry_decl,pragma_s))>
+<!ELEMENT entry_decl ((ENTRY,identifier,formal_part_opt,CHAR59) | (ENTRY,identifier,CHAR40,discrete_range,CHAR41,formal_part_opt,CHAR59))>
+<!ELEMENT entry_body ((ENTRY,identifier,formal_part_opt,WHEN,condition,entry_body_part) | (ENTRY,identifier,CHAR40,iter_part,discrete_range,CHAR41,formal_part_opt,WHEN,condition,entry_body_part))>
+<!ELEMENT entry_body_part (CHAR59 | (IS,decl_part,block_body,END,id_opt,CHAR59))>
+<!ELEMENT rep_spec_s (EMPTY | (rep_spec_s,rep_spec,pragma_s))>
+<!ELEMENT entry_call (procedure_call)>
+<!ELEMENT accept_stmt ((accept_hdr,CHAR59) | (accept_hdr,DO,handled_stmt_s,END,id_opt,CHAR59))>
+<!ELEMENT accept_hdr ((ACCEPT,entry_name,formal_part_opt))>
+<!ELEMENT entry_name (simple_name | (entry_name,CHAR40,expression,CHAR41))>
+<!ELEMENT delay_stmt ((DELAY,expression,CHAR59) | (DELAY,UNTIL,expression,CHAR59))>
+<!ELEMENT select_stmt (select_wait | async_select | timed_entry_call | cond_entry_call)>
+<!ELEMENT select_wait ((SELECT,guarded_select_alt,or_select,else_opt,END,SELECT,CHAR59))>
+<!ELEMENT guarded_select_alt (select_alt | (WHEN,condition,RIGHT_SHAFT,select_alt))>
+<!ELEMENT or_select (EMPTY | (or_select,OR,guarded_select_alt))>
+<!ELEMENT select_alt ((accept_stmt,stmts_opt) | (delay_stmt,stmts_opt) | (TERMINATE,CHAR59))>
+<!ELEMENT delay_or_entry_alt ((delay_stmt,stmts_opt) | (entry_call,stmts_opt))>
+<!ELEMENT async_select ((SELECT,delay_or_entry_alt,THEN,ABORT,statement_s,END,SELECT,CHAR59))>
+<!ELEMENT timed_entry_call ((SELECT,entry_call,stmts_opt,OR,delay_stmt,stmts_opt,END,SELECT,CHAR59))>
+<!ELEMENT cond_entry_call ((SELECT,entry_call,stmts_opt,ELSE,statement_s,END,SELECT,CHAR59))>
+<!ELEMENT stmts_opt (EMPTY | statement_s)>
+<!ELEMENT abort_stmt ((ABORT,name_s,CHAR59))>
+<!ELEMENT compilation (EMPTY | (compilation,comp_unit) | (pragma,pragma_s))>
+<!ELEMENT comp_unit ((context_spec,private_opt,unit,pragma_s) | (private_opt,unit,pragma_s))>
+<!ELEMENT private_opt (EMPTY | PRIVATE)>
+<!ELEMENT context_spec ((with_clause,use_clause_opt) | (context_spec,with_clause,use_clause_opt) | (context_spec,pragma))>
+<!ELEMENT with_clause ((WITH,c_name_list,CHAR59))>
+<!ELEMENT use_clause_opt (EMPTY | (use_clause_opt,use_clause))>
+<!ELEMENT unit (pkg_decl | pkg_body | subprog_decl | subprog_body | subunit | generic_decl | rename_unit)>
+<!ELEMENT subunit ((SEPARATE,CHAR40,compound_name,CHAR41,subunit_body))>
+<!ELEMENT subunit_body (subprog_body | pkg_body | task_body | prot_body)>
+<!ELEMENT body_stub ((TASK,BODY,simple_name,IS,SEPARATE,CHAR59) | (PACKAGE,BODY,compound_name,IS,SEPARATE,CHAR59) | (subprog_spec,IS,SEPARATE,CHAR59) | (PROTECTED,BODY,simple_name,IS,SEPARATE,CHAR59))>
+<!ELEMENT exception_decl ((def_id_s,CHAR58,EXCEPTION,CHAR59))>
+<!ELEMENT except_handler_part ((EXCEPTION,exception_handler) | (except_handler_part,exception_handler))>
+<!ELEMENT exception_handler ((WHEN,except_choice_s,RIGHT_SHAFT,statement_s) | (WHEN,identifier,CHAR58,except_choice_s,RIGHT_SHAFT,statement_s))>
+<!ELEMENT except_choice_s (except_choice | (except_choice_s,CHAR124,except_choice))>
+<!ELEMENT except_choice (name | OTHERS)>
+<!ELEMENT raise_stmt ((RAISE,name_opt,CHAR59))>
+<!ELEMENT requeue_stmt ((REQUEUE,name,CHAR59) | (REQUEUE,name,WITH,ABORT,CHAR59))>
+<!ELEMENT generic_decl ((generic_formal_part,subprog_spec,CHAR59) | (generic_formal_part,pkg_spec,CHAR59))>
+<!ELEMENT generic_formal_part (GENERIC | (generic_formal_part,generic_formal))>
+<!ELEMENT generic_formal ((param,CHAR59) | (TYPE,simple_name,generic_discrim_part_opt,IS,generic_type_def,CHAR59) | (WITH,PROCEDURE,simple_name,formal_part_opt,subp_default,CHAR59) | (WITH,FUNCTION,designator,formal_part_opt,RETURN,name,subp_default,CHAR59) | (WITH,PACKAGE,simple_name,IS,NEW,name,CHAR40,BOX,CHAR41,CHAR59) | (WITH,PACKAGE,simple_name,IS,NEW,name,CHAR59) | use_clause)>
+<!ELEMENT generic_discrim_part_opt (EMPTY | discrim_part | (CHAR40,BOX,CHAR41))>
+<!ELEMENT subp_default (EMPTY | (IS,name) | (IS,BOX))>
+<!ELEMENT generic_type_def ((CHAR40,BOX,CHAR41) | (RANGE,BOX) | (MOD,BOX) | (DELTA,BOX) | (DELTA,BOX,DIGITS,BOX) | (DIGITS,BOX) | array_type | access_type | private_type | generic_derived_type)>
+<!ELEMENT generic_derived_type ((NEW,subtype_ind) | (NEW,subtype_ind,WITH,PRIVATE) | (ABSTRACT,NEW,subtype_ind,WITH,PRIVATE))>
+<!ELEMENT generic_subp_inst ((subprog_spec,IS,generic_inst))>
+<!ELEMENT generic_pkg_inst ((PACKAGE,compound_name,IS,generic_inst))>
+<!ELEMENT generic_inst ((NEW,name))>
+<!ELEMENT rep_spec (attrib_def | record_type_spec | address_spec)>
+<!ELEMENT attrib_def ((FOR,mark,USE,expression,CHAR59))>
+<!ELEMENT record_type_spec ((FOR,mark,USE,RECORD,align_opt,comp_loc_s,END,RECORD,CHAR59))>
+<!ELEMENT align_opt (EMPTY | (AT,MOD,expression,CHAR59))>
+<!ELEMENT comp_loc_s (EMPTY | (comp_loc_s,mark,AT,expression,RANGE,range,CHAR59))>
+<!ELEMENT address_spec ((FOR,mark,USE,AT,expression,CHAR59))>
+<!ELEMENT code_stmt ((qualified,CHAR59))>
+<!ELEMENT TIC (#PCDATA)>
+<!ELEMENT DOT_DOT (#PCDATA)>
+<!ELEMENT LT_LT (#PCDATA)>
+<!ELEMENT BOX (#PCDATA)>
+<!ELEMENT LT_EQ (#PCDATA)>
+<!ELEMENT EXPON (#PCDATA)>
+<!ELEMENT NE (#PCDATA)>
+<!ELEMENT GT_GT (#PCDATA)>
+<!ELEMENT GE (#PCDATA)>
+<!ELEMENT IS_ASSIGNED (#PCDATA)>
+<!ELEMENT RIGHT_SHAFT (#PCDATA)>
+<!ELEMENT ABORT (#PCDATA)>
+<!ELEMENT ABS (#PCDATA)>
+<!ELEMENT ABSTRACT (#PCDATA)>
+<!ELEMENT ACCEPT (#PCDATA)>
+<!ELEMENT ACCESS (#PCDATA)>
+<!ELEMENT ALIASED (#PCDATA)>
+<!ELEMENT ALL (#PCDATA)>
+<!ELEMENT AND (#PCDATA)>
+<!ELEMENT ARRAY (#PCDATA)>
+<!ELEMENT AT (#PCDATA)>
+<!ELEMENT BEGiN (#PCDATA)>
+<!ELEMENT BODY (#PCDATA)>
+<!ELEMENT CASE (#PCDATA)>
+<!ELEMENT CONSTANT (#PCDATA)>
+<!ELEMENT DECLARE (#PCDATA)>
+<!ELEMENT DELAY (#PCDATA)>
+<!ELEMENT DELTA (#PCDATA)>
+<!ELEMENT DIGITS (#PCDATA)>
+<!ELEMENT DO (#PCDATA)>
+<!ELEMENT ELSE (#PCDATA)>
+<!ELEMENT ELSIF (#PCDATA)>
+<!ELEMENT END (#PCDATA)>
+<!ELEMENT ENTRY (#PCDATA)>
+<!ELEMENT EXCEPTION (#PCDATA)>
+<!ELEMENT EXIT (#PCDATA)>
+<!ELEMENT FOR (#PCDATA)>
+<!ELEMENT FUNCTION (#PCDATA)>
+<!ELEMENT GENERIC (#PCDATA)>
+<!ELEMENT GOTO (#PCDATA)>
+<!ELEMENT IF (#PCDATA)>
+<!ELEMENT IN (#PCDATA)>
+<!ELEMENT IS (#PCDATA)>
+<!ELEMENT LIMITED (#PCDATA)>
+<!ELEMENT LOOP (#PCDATA)>
+<!ELEMENT MOD (#PCDATA)>
+<!ELEMENT NEW (#PCDATA)>
+<!ELEMENT NOT (#PCDATA)>
+<!ELEMENT NuLL (#PCDATA)>
+<!ELEMENT OF (#PCDATA)>
+<!ELEMENT OR (#PCDATA)>
+<!ELEMENT OTHERS (#PCDATA)>
+<!ELEMENT OUT (#PCDATA)>
+<!ELEMENT PACKAGE (#PCDATA)>
+<!ELEMENT PRAGMA (#PCDATA)>
+<!ELEMENT PRIVATE (#PCDATA)>
+<!ELEMENT PROCEDURE (#PCDATA)>
+<!ELEMENT PROTECTED (#PCDATA)>
+<!ELEMENT RAISE (#PCDATA)>
+<!ELEMENT RANGE (#PCDATA)>
+<!ELEMENT RECORD (#PCDATA)>
+<!ELEMENT REM (#PCDATA)>
+<!ELEMENT RENAMES (#PCDATA)>
+<!ELEMENT REQUEUE (#PCDATA)>
+<!ELEMENT RETURN (#PCDATA)>
+<!ELEMENT REVERSE (#PCDATA)>
+<!ELEMENT SELECT (#PCDATA)>
+<!ELEMENT SEPARATE (#PCDATA)>
+<!ELEMENT SUBTYPE (#PCDATA)>
+<!ELEMENT TAGGED (#PCDATA)>
+<!ELEMENT TASK (#PCDATA)>
+<!ELEMENT TERMINATE (#PCDATA)>
+<!ELEMENT THEN (#PCDATA)>
+<!ELEMENT TYPE (#PCDATA)>
+<!ELEMENT UNTIL (#PCDATA)>
+<!ELEMENT USE (#PCDATA)>
+<!ELEMENT WHEN (#PCDATA)>
+<!ELEMENT WHILE (#PCDATA)>
+<!ELEMENT WITH (#PCDATA)>
+<!ELEMENT XOR (#PCDATA)>
+<!ELEMENT char_lit (#PCDATA)>
+<!ELEMENT identifier (#PCDATA)>
+<!ELEMENT char_string (#PCDATA)>
+<!ELEMENT numeric_lit (#PCDATA)>
+<!ELEMENT CHAR59 (#PCDATA)>
+<!ELEMENT CHAR40 (#PCDATA)>
+<!ELEMENT CHAR41 (#PCDATA)>
+<!ELEMENT CHAR44 (#PCDATA)>
+<!ELEMENT CHAR58 (#PCDATA)>
+<!ELEMENT CHAR124 (#PCDATA)>
+<!ELEMENT CHAR46 (#PCDATA)>
+<!ELEMENT CHAR61 (#PCDATA)>
+<!ELEMENT CHAR60 (#PCDATA)>
+<!ELEMENT CHAR62 (#PCDATA)>
+<!ELEMENT CHAR43 (#PCDATA)>
+<!ELEMENT CHAR45 (#PCDATA)>
+<!ELEMENT CHAR38 (#PCDATA)>
+<!ELEMENT CHAR42 (#PCDATA)>
+<!ELEMENT CHAR47 (#PCDATA)>

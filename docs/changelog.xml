@@ -1,0 +1,59 @@
+<appendix id="changelog"><title>Revision History</title>
+    <!--####################################################################-->
+    <section id="ver0.6"><title>Version 0.6</title>
+        <para>
+The XML document includes a processing instruction to invoke an XSLT stylesheet
+&yaxx.xsl; that transforms it back into a valid correct program.
+</para>
+        <para>
+The Fortran lex analyzer is modified to report the value of terminals.  The
+SLABEL terminal is treated specially to add a new line before each statement.
+        </para>
+    </section>
+    <!--####################################################################-->
+    <section id="ver0.5"><title>Version 0.5</title>
+        <para>
+The text that contains XML special entities such as '&amp', '&gt;' and '&lt;'
+are replaced with "&amp;amp;", "&amp;gt;" and "&amp;lt;" respectively.
+        </para>
+        <para>
+            The XML grammar from <ulink url="http://kiwi.emse.fr/LY/solution.txt">Lex and Yacc course</ulink> is added.
+        </para>
+    </section>
+    <!--####################################################################-->
+    <section id="ver0.4"><title>Version 0.4</title>
+        <para>
+            The Java grammar from <ulink
+url="http://home.attbi.com/~bronnikov/java.html">Bronnikov</ulink> is added.
+        </para>
+    </section>
+    <!--####################################################################-->
+    <section id="ver0.3"><title>Version 0.3</title>
+        <para>
+            Solved problem for '+' like terminals in both XML and DTD.
+        </para>
+        <para>
+            The SQL grammar from J.Levine et al &lex-and-yacc; is added.
+        </para>
+    </section>
+    <!--####################################################################-->
+    <section id="ver0.2"><title>Version 0.2</title>
+        <para>
+            The DTD output is produced.
+        </para>
+        <para>
+            The XML output is adjusted to include the DTD and name space
+            declaration.
+        </para>
+    </section>
+    <!--####################################################################-->
+    <section id="ver0.1"><title>Version 0.1</title>
+        <para>
+            The initial version released, with the XML output.
+        </para>
+    </section>
+    <!--####################################################################-->
+</appendix>
+<!--
+    vim:ft=docbk
+-->

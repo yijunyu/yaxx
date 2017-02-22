@@ -1,0 +1,5 @@
+<appendix id="req"><title>Requirements</title>
+    <para>
+        All you really need is a version of &bison; and a C compiler.
+    </para>
+</appendix>

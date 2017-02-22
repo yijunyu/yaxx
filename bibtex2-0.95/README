@@ -1,0 +1,23 @@
+This is bibtex2.
+
+* (c) 1995 Henk Muller
+*
+* No Warranty, you are using this program at your own risk.
+* Neither I, nor my employer can be held responsible for any damage that might
+* result from downloading, unpacking, compiling or using this software.
+* 
+* You can freely redistribute and modify this code.
+* Please leave the copyright message intact will ya?
+
+You have already unpacked it, to install it:
+
+- Edit the Makefile (change 'BINDIR')
+
+- Type make.
+
+- Try it.
+
+See the file http://www.pact.srf.ac.uk/~henkm/sources/bibtex2.html for
+more details.
+
+// Yijun Yu: I need an example of a BibTeX file for this parser.

@@ -1,0 +1,347 @@
+<chapter id="intro"><title>Introduction</title>
+<section><title>YAXX: YAcc eXtension to XML</title>
+    <para>
+The YAXX tool is an XML extension to YACC, a well-known compiler-compiler.
+Given a program and its YACC grammar, YAXX outputs the internal syntax tree of
+the program as an XML document which conforms to the DTD that is also generated
+from the YACC grammar. The generated XML document can be transformed back to
+a legal program through an XSLT.
+    </para>
+
+    <itemizedlist><title>What YAXX includes</title>
+        <listitem>
+            <para>
+                Extension code to Bison, a variant of YACC. 
+            </para>
+        </listitem>
+
+        <listitem>
+            <para>
+                ANSI C grammar and parser
+            </para>
+        </listitem>
+
+        <listitem>
+            <para>
+                Fortran 77 grammar and parser
+            </para>
+        </listitem>
+
+        <listitem>
+            <para>
+                SQL grammars and parsers from the John R. Levine, et al book of 
+                <emphasis>Lex and Yacc, 2nd Edition</emphasis>
+            </para>
+        </listitem>
+
+        <listitem>
+            <para>
+                Java 1.1 grammar and parser
+            </para>
+        </listitem>
+
+        <listitem>
+            <para>
+                XML grammar and parser
+            </para>
+        </listitem>
+
+    </itemizedlist>
+</section>
+</chapter>
+
+<chapter id="installation"><title>Installation</title>
+<section><title>Install YAXX</title>
+   <para>
+    <emphasis>Requirements</emphasis> 
+    <itemizedlist>
+     <listitem><para>&bison;</para></listitem>
+     <listitem><para>&yaxx;</para></listitem>
+    </itemizedlist>
+   </para>
+   <programlisting>
+        HOME=/home/yijun
+        tar xvfz &yaxx;.tar.gz
+        YAXX=$HOME/&yaxx;
+        cd $YAXX
+        tar xvfz &bison;.tar.gz
+        BISON=$YAXX/&bison;
+        cp $YAXX/yaxx/* $BISON/src
+        cd $BISON/src
+        rm Makefile.in
+        ln -s Makefile.yaxx.in Makefile.in
+        cd ..
+        ./configure
+        make
+   </programlisting>
+<para> After compilation of Bison, the environment variable
+<literal>BISON_SIMPLE</literal> must be set correctly to
+<literal>bison.simple.yaxx</literal>:
+   <programlisting>
+setenv BISON_SIMPLE $BISON/src/bison.simple.yaxx
+   </programlisting>
+</para>
+<para>
+Then the compiled binary at <literal>bison-1.35/src/bison</literal>
+can be used instead of the original one.
+</para>
+<para>
+A working YACC parser has a grammar file with extension <literal>.y</literal>.
+In the makefile of the parser, the new bison needs to be used instead of the 
+original one.
+   <programlisting>
+BISON_PROGRAM=$BISON/src/bison
+   </programlisting>
+</para>
+</section>
+</chapter>
+
+<chapter id="examples"><title>Examples</title>
+<section><title>Example 1: ANSI C</title>
+    <para>
+        <emphasis>Input</emphasis>
+        <itemizedlist>
+         <listitem>
+          <para>An Ansi C gramma:</para>
+          <programlisting>
+            $YAXX/ansic/&scan.l;
+            $YAXX/ansic/&gram.y;
+          </programlisting>
+         </listitem>
+         <listitem>
+          <para>An Ansi C program:</para>
+          <programlisting>
+            $YAXX/ansic/&main.c;
+          </programlisting>
+         </listitem>
+        </itemizedlist>
+    </para>
+    <para> <emphasis>Command</emphasis>
+    <programlisting>
+            $YAXX/&ansic.compile.sh;
+    </programlisting>
+    </para>
+    <para><emphasis>Output</emphasis></para>
+        <para>
+An XML document which corresponds to the syntax tree (&main.xml;) and an DTD of the above XML document (&ansic.dtd;). 
+        </para>
+        <para>
+In &main.xml;, the name space is defined as
+<literal>yaxx</literal>, the root element is <literal>file</literal> 
+which is the RHS of the starting rule in the YACC grammar.
+        </para>
+        <para>
+In &ansic.dtd;, the non-terminals are generated as 
+composite elements <literal>&lt;!ELEMENT lhs (rhs...)&gt;</literal>;
+the terminals are generated as leaf element with string value
+<literal>&lt;!ELEMENT term (#PCDATA)&gt;</literal>.
+        </para>
+        <para>
+In this way, the &main.xml; can be verified against the &ansic.dtd; by any XML
+parser.
+        </para>
+</section>
+<section><title>Example 2: Fortran 77</title>
+    <para>
+      <emphasis>Input</emphasis>
+        <itemizedlist>
+         <listitem>
+          <para>A Fortran 77 gramma and lex analyzer:</para>
+          <programlisting>
+            $YAXX/fortran/&lex.c;
+            $YAXX/fortran/&fortran.y;
+          </programlisting>
+         </listitem>
+         <listitem>
+          <para>A Fortran 77 program:</para>
+          <programlisting>
+            $YAXX/fortran/&ex.f;
+          </programlisting>
+         </listitem>
+        </itemizedlist>
+    </para>
+    <para> <emphasis>Command</emphasis>
+        <programlisting>
+            $YAXX/&fortran.compile.sh;
+        </programlisting>
+    </para>
+    <para><emphasis>Output</emphasis></para>
+        <para>
+An XML document which corresponds to the syntax tree (&ex.f;) and an DTD of the above XML document (&fortran77.dtd;). 
+        </para>
+        <para>
+In &ex.xml;, the name space is defined as <literal>yaxx</literal>, the root
+element is <literal>executable_program</literal> which is the RHS of the
+starting rule in the YACC grammar.
+        </para>
+        <para>
+In &fortran77.dtd;, the non-terminals are generated as composite elements
+<literal>&lt;!ELEMENT lhs (rhs...)&gt;</literal>; the terminals are generated
+as leaf element with string value <literal>&lt;!ELEMENT term
+(#PCDATA)&gt;</literal>.  </para>
+        <para>
+In this way, the &ex.xml; can be verified against the &fortran77.dtd; by any
+XML parser.
+        </para>
+</section>
+<section><title>Example 3: SQL and embedded SQL</title>
+    <para>
+      <emphasis>Input</emphasis>
+        <itemizedlist>
+         <listitem>
+          <para>SQL grammar and embedded SQL grammar and lex rules</para>
+          <programlisting>
+            $YAXX/sql/&scn1.l;
+            $YAXX/sql/&sql1.y;
+            $YAXX/sql/&scn2.l;
+            $YAXX/sql/&sql2.y;
+            $YAXX/sql/&sqltext.c;
+          </programlisting>
+         </listitem>
+         <listitem>
+          <para>Two examples respectively:</para>
+          <programlisting>
+            $YAXX/sql/&test.sql1;
+            $YAXX/sql/&test.sql2;
+          </programlisting>
+         </listitem>
+        </itemizedlist>
+    </para>
+    <para> <emphasis>Command</emphasis>
+        <programlisting>
+            $YAXX/&sql.compile.sh;
+        </programlisting>
+    </para>
+    <para><emphasis>Output</emphasis></para>
+        <para>
+XML documents which corresponds to the syntax tree of the grammars 
+( &test.sql1.xml;, &test.sql2.xml;) 
+and respectively the DTD's of the above XML documents (&sql1.dtd;, &sql2.dtd;). 
+        </para>
+        <para>
+In &test.sql1.xml; and &test.sql2.xml;, the name space is defined as
+<literal>yaxx</literal>, the root element is <literal>sql_list</literal> which
+is the LHS of the starting rule in the YACC grammar.
+        </para>
+        <para>
+In &sql1.dtd;, &sql2.dtd;, the non-terminals are generated as 
+composite elements <literal>&lt;!ELEMENT lhs (rhs...)&gt;</literal>;
+the terminals are generated as leaf element with string value
+<literal>&lt;!ELEMENT term (#PCDATA)&gt;</literal>.
+        </para>
+        <para>
+In addition, the terminals like '+' can not be stored directly as element
+name because the XML parser can rejected. So instead, they are stored as
+"CHAR" prefixing the ASCII value of the character '+', for example.
+        </para>
+        <para>
+In this way, the &test.sql1.xml;, &test.sql2.xml; can be verified against the
+&sql1.dtd; and &sql2.dtd; respectively by any XML parser.
+</para>
+</section>
+<section><title>Example 4: Java</title>
+    <para>
+      <emphasis>Input</emphasis>
+        <itemizedlist>
+         <listitem>
+          <para>Java 1.1 grammar and lex rules</para>
+          <programlisting>
+            $YAXX/java/&java.l;
+            $YAXX/java/&java11.y;
+            $YAXX/java/&main.c;
+          </programlisting>
+         </listitem>
+         <listitem>
+          <para>HelloWorld example</para>
+          <programlisting>
+            $YAXX/java/&HelloWorld.java;
+          </programlisting>
+         </listitem>
+        </itemizedlist>
+    </para>
+    <para> <emphasis>Command</emphasis>
+        <programlisting>
+            $YAXX/&java.compile.sh;
+        </programlisting>
+    </para>
+    <para><emphasis>Output</emphasis></para>
+        <para>
+XML documents which corresponds to the syntax tree of the Java grammar 
+( &HelloWorld.xml;) and the DTD's of the above XML document (&java11.dtd;). 
+        </para>
+        <para>
+In &HelloWorld.xml;, the name space is defined as <literal>yaxx</literal>, the
+root element is <literal>CompilationUnit</literal> which is the RHS of the
+starting rule in the YACC grammar.
+        </para>
+        <para>
+In &java11.dtd;, the non-terminals are generated as composite elements
+<literal>&lt;!ELEMENT lhs (rhs...)&gt;</literal>; the terminals are generated
+as leaf element with string value <literal>&lt;!ELEMENT term
+(#PCDATA)&gt;</literal>.
+        </para>
+        <para>
+In addition, the terminals like '+' can not be stored directly as element
+name because the XML parser can rejected. So instead, they are stored as
+"CHAR" prefixing the ASCII value of the character '+', for example.
+        </para>
+        <para>
+In this way, the &HelloWorld.xml; can be verified against the &java11.dtd; by
+any XML parser.
+</para>
+</section>
+<section><title>Example 5: XML</title>
+    <para>
+      <emphasis>Input</emphasis>
+        <itemizedlist>
+         <listitem>
+          <para>XML grammar and lex rules</para>
+          <programlisting>
+            $YAXX/xml/&xml.l;
+            $YAXX/xml/&xml.y;
+            $YAXX/xml/&main.c;
+          </programlisting>
+         </listitem>
+         <listitem>
+          <para>An XML example without processing instructions</para>
+          <programlisting>
+            $YAXX/xml/&test.xml;
+          </programlisting>
+         </listitem>
+        </itemizedlist>
+    </para>
+    <para> <emphasis>Command</emphasis>
+        <programlisting>
+            $YAXX/&xml.compile.sh;
+        </programlisting>
+    </para>
+    <para><emphasis>Output</emphasis></para>
+        <para>
+YAXX documents which corresponds to the syntax tree of the XML grammar 
+( &test-yaxx.xml;) and the DTD's of the above XML document (&xml.dtd;). 
+        </para>
+        <para>
+In &test-yaxx.xml;, the name space is defined as <literal>yaxx</literal>, the
+root element is <literal>module</literal> which is the RHS of the
+starting rule in the YACC grammar.
+        </para>
+        <para>
+In &xml.dtd;, the non-terminals are generated as composite elements
+<literal>&lt;!ELEMENT lhs (rhs...)&gt;</literal>; the terminals are generated
+as leaf element with string value <literal>&lt;!ELEMENT term
+(#PCDATA)&gt;</literal>.
+        </para>
+        <para>
+In addition, the text that contains XML special entities such as '&amp', '&gt;'
+and '&lt;' are replaced with "&amp;amp;", "&amp;gt;" and "&amp;lt;"
+respectively.
+        </para>
+        <para>
+In this way, the &test-yaxx.xml; can be verified against the &xml.dtd; by any
+XML parser.
+</para>
+</section>
+</chapter>
+<!--
+    vim:ft=docbk
+-->

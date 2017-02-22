@@ -1,0 +1,82 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+<!ENTITY include-readme                SYSTEM "readme.xml">
+<!ENTITY include-requirements    SYSTEM "requirements.xml">
+<!ENTITY include-changelog          SYSTEM "changelog.xml">
+<!ENTITY bison "<literal><ulink url='http://prdownloads.sourceforge.net/yaxx/bison-1.35.tar.gz?download'>bison-1.35</ulink></literal>">
+<!ENTITY yaxx "<literal><ulink url='http://prdownloads.sourceforge.net/yaxx/yaxx-0.6.tar.gz?download'>yaxx-0.6</ulink></literal>">
+<!ENTITY scan.l "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/ansic/scan.l'>scan.l</ulink></literal>">
+<!ENTITY gram.y "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/ansic/gram.y'>gram.y</ulink></literal>">
+<!ENTITY main.c "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/ansic/main.c'>main.c</ulink></literal>">
+<!ENTITY ansic.compile.sh "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/ansic/compile.sh'>ansic/compile.sh</ulink></literal>">
+<!ENTITY main.xml "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/ansic/main.xml'>main.xml</ulink></literal>">
+<!ENTITY ansic.dtd "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/ansic/ansic.dtd'>ansic.dtd</ulink></literal>">
+<!ENTITY fortran77.dtd "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/fortran/fortran77.dtd'>fortran77.dtd</ulink></literal>">
+<!ENTITY fortran.compile.sh "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/fortran/compile.sh'>fortran/compile.sh</ulink></literal>">
+<!ENTITY lex.c "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/fortran/lex.c'>lex.c</ulink></literal>">
+<!ENTITY fortran.y "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/fortran/fortran.y'>fortran.y</ulink></literal>">
+<!ENTITY ex.f "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/fortran/ex.f'>ex.f</ulink></literal>">
+<!ENTITY ex.xml "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/fortran/ex.xml'>ex.xml</ulink></literal>">
+<!ENTITY sql.compile.sh "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/compile.sh'>sql/compile.sh</ulink></literal>">
+<!ENTITY scn1.l "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/scn1.l'>scn1.l</ulink></literal>">
+<!ENTITY scn2.l "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/scn2.l'>scn2.l</ulink></literal>">
+<!ENTITY sql1.l "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/sql1.l'>sql1.l</ulink></literal>">
+<!ENTITY sql2.l "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/sql2.l'>sql2.l</ulink></literal>">
+<!ENTITY test.sql1 "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/test.sql1'>test.sql1</ulink></literal>">
+<!ENTITY test.sql2 "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/test.sql2'>test.sql2</ulink></literal>">
+<!ENTITY test.sql1.xml "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/test.sql1.xml'>test.sql1.xml</ulink></literal>">
+<!ENTITY test.sql2.xml "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/test.sql2.xml'>test.sql2.xml</ulink></literal>">
+<!ENTITY sqltext.c "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/sqltext.c'>sqltext.c</ulink></literal>">
+<!ENTITY sql1.y "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/sql1.y'>sql1.y</ulink></literal>">
+<!ENTITY sql2.y "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/sql2.y'>sql2.y</ulink></literal>">
+<!ENTITY sql1.dtd "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/sql1.dtd'>sql1.dtd</ulink></literal>">
+<!ENTITY sql2.dtd "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/sql/sql2.dtd'>sql2.dtd</ulink></literal>">
+<!ENTITY java.compile.sh "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/java/compile.sh'>java/compile.sh</ulink></literal>">
+<!ENTITY java.l "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/java/java.l'>java.l</ulink></literal>">
+<!ENTITY java11.y "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/java/java11.y'>java11.y</ulink></literal>">
+<!ENTITY java11.dtd "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/java/java11.dtd'>java11.dtd</ulink></literal>">
+<!ENTITY HelloWorld.java "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/java/HelloWorld.java'>HelloWorld.java</ulink></literal>">
+<!ENTITY HelloWorld.xml "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/xml/HelloWorld.xml'>HelloWorld.xml</ulink></literal>">
+<!ENTITY lex-and-yacc "<ulink url='http://search.barnesandnoble.com/BookSearch/isbnInquiry.asp?ean=9781565920002'>Lex and Yacc, 2nd edition</ulink>">
+<!ENTITY xml.compile.sh "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/xml/compile.sh'>xml/compile.sh</ulink></literal>">
+<!ENTITY xml.l "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/xml/xml.l'>xml.l</ulink></literal>">
+<!ENTITY xml.y "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/xml/xml.y'>xml.y</ulink></literal>">
+<!ENTITY test.xml "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/xml/test.xml'>test.xml</ulink></literal>">
+<!ENTITY test-yaxx.xml "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/xml/test-yaxx.xml'>test-yaxx.xml</ulink></literal>">
+<!ENTITY xml.dtd "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/xml/xml.dtd'>xml.dtd</ulink></literal>">
+<!ENTITY yaxx.xsl "<literal><ulink url='http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/yaxx/yaxx/yaxx/yaxx.xsl'>yaxx.xsl</ulink></literal>">
+]>
+<book id="index">
+    <bookinfo>
+        <title>YAXX Manual</title>
+
+        <authorgroup>
+            <author>
+                <firstname>Yijun</firstname>
+                <surname>Yu</surname>
+                <affiliation>
+                    <address>
+                        <email>yijun@elis.rug.ac.be</email>
+                    </address>
+                </affiliation>
+            </author>
+        </authorgroup>
+
+        <pubdate>2002</pubdate>
+        <date>18 September 2002</date>
+
+        <abstract>
+            <para>
+                This document describes the YAXX project.
+            </para>
+
+            <para>
+The latest version of this manual can be found at <ulink
+url="http://yaxx.sourceforge.net">http://yaxx.sourceforge.net</ulink>.
+            </para>
+        </abstract>
+    </bookinfo>
+
+    &include-readme;
+    &include-requirements;
+    &include-changelog;
+</book>

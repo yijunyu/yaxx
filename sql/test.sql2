@@ -1,0 +1,2 @@
+EXEC SQL
+SELECT DISTINCT key INTO :name FROM student;
