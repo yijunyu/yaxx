@@ -845,6 +845,7 @@ b4_pure_if([],
 [
 // Yijun Yu: utility functions -----------------------------------------------
 #include <stdio.h>
+#include <string.h>
 /// replace character terminals into symbolic terminals
 static char *YYTNAME(int r)
 {
@@ -1391,10 +1392,10 @@ yyreduce:
       i = n;
       for (yyi = yyprhs[yyn]; yyrhs[yyi] > 0; yyi++, i--) 
       {
-          char * yyxml_str = yyxsp[1-i];
-          if (yyxml_str) {
-              strcat(yyxml_str, yyxml_str); 
-              XML_FREE(yyxml_str);
+          char * xml_str = yyxsp[1-i];
+          if (xml_str) {
+              strcat(yyxml_str, xml_str); 
+              XML_FREE(xml_str);
               yyxsp[1-i] = NULL;
           } else {
             fprintf(stderr, "Warning! the %d-th argument is empty", n-i+1);
