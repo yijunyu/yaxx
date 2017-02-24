@@ -1,7 +1,6 @@
-VER=2.3
-YACC = bison$(VER)
+YACC = bison$(X)
 LEX  = flex
-YFLAGS  = -dv -S yaxx-0.13-bison-$(VER).c
+YFLAGS  = -dv -S yaxx-${Y}-bison-$(X).c
 CFLAGS  = -g -O -DENTITYREPLACE
 LFLAGS  =
 #BIN = ../../bin

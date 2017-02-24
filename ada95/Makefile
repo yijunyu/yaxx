@@ -1,9 +1,7 @@
 PREFIX=ada
-VER=2.3
-YACC = bison$(VER)
-YFLAGS  = -dv -S yaxx-0.13-bison-$(VER).c
+YACC = bison$(X)
+YFLAGS  = -dv -S yaxx-$(Y)-bison-$(X).c
 LEX  = flex
-#YFLAGS  = -dv 
 XFLAGS =
 CFLAGS  = -g ${XFLAGS}
 LFLAGS  =
