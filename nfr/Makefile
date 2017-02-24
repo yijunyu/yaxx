@@ -1,4 +1,5 @@
-BISON=bison2.1
+VER=2.2
+BISON=bison$(VER)
 PREFIX=yy
 NFR = $(wildcard *.nfr)
 all : $(NFR:.nfr=.xml)
@@ -11,9 +12,9 @@ nfr : nfr.tab.c lex.yy.c
 	gcc -g -o $@ $^ 
 JUNK += nfr.exe nfr
 
-YFLAGS  = -dv -S yaxx-0.12-bison-2.1.c
+YFLAGS  = -dv -S yaxx-0.13-bison-$(VER).c
 nfr.tab.c: nfr.y
-	bison2.1 ${YFLAGS} $<
+	bison$(VER) ${YFLAGS} $<
 JUNK += nfr.tab.c nfr.tab.h
 JUNK += nfr.output
 

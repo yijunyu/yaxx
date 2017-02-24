@@ -1,7 +1,8 @@
 PREFIX=java
-YACC = bison2.1
+VER=2.2
+YACC = bison$(VER)
 LEX  = flex
-YFLAGS  = -dv -S yaxx-0.12-bison-2.1.c
+YFLAGS  = -dv -S yaxx-0.13-bison-$(VER).c
 CFLAGS  = -g -O
 LFLAGS  =
 BIN = .

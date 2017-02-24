@@ -1,10 +1,11 @@
 PREFIX=ada
-YACC = bison2.1
-YFLAGS  = -dv -S yaxx-0.12-bison-2.1.c
+VER=2.2
+YACC = bison$(VER)
+YFLAGS  = -dv -S yaxx-0.13-bison-$(VER).c
 LEX  = flex
 #YFLAGS  = -dv 
 XFLAGS =
-CFLAGS  = -g ${XFLAGS} -O
+CFLAGS  = -g ${XFLAGS}
 LFLAGS  =
 BIN = .
 CC = gcc

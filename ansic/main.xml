@@ -1,5 +1,116 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="yaxx.xsl"?><!DOCTYPE file id="58" SYSTEM "yaxx.dtd">
 <yaxx:file id="58" xmlns:yaxx="urn:YAcc-Xml-eXtension">
+<yaxx:external_definition id="57">
+<yaxx:function_definition id="56">
+<yaxx:declaration_specifiers id="3">
+<yaxx:type_specifier id="1">
+<yaxx:INT id="0">int</yaxx:INT>
+</yaxx:type_specifier>
+</yaxx:declaration_specifiers>
+<yaxx:declarator id="b">
+<yaxx:declarator2 id="9">
+<yaxx:declarator2 id="6">
+<yaxx:identifier id="5">
+<yaxx:IDENTIFIER id="4">main</yaxx:IDENTIFIER>
+</yaxx:identifier>
+</yaxx:declarator2>
+<yaxx:PUNCT_LPAR id="7">(</yaxx:PUNCT_LPAR>
+<yaxx:PUNCT_RPAR id="8">)</yaxx:PUNCT_RPAR>
+</yaxx:declarator2>
+</yaxx:declarator>
+<yaxx:function_body id="55">
+<yaxx:compound_statement id="54">
+<yaxx:PUNCT_LBRACE id="c">{</yaxx:PUNCT_LBRACE>
+<yaxx:statement_list id="52">
+<yaxx:statement id="51">
+<yaxx:jump_statement id="50">
+<yaxx:RETURN id="d">return</yaxx:RETURN>
+<yaxx:expr id="4e">
+<yaxx:assignment_expr id="4d">
+<yaxx:conditional_expr id="4c">
+<yaxx:logical_or_expr id="4a">
+<yaxx:logical_and_expr id="48">
+<yaxx:inclusive_or_expr id="46">
+<yaxx:exclusive_or_expr id="44">
+<yaxx:and_expr id="42">
+<yaxx:equality_expr id="40">
+<yaxx:relational_expr id="3e">
+<yaxx:shift_expr id="3c">
+<yaxx:additive_expr id="3a">
+<yaxx:multiplicative_expr id="38">
+<yaxx:cast_expr id="37">
+<yaxx:unary_expr id="35">
+<yaxx:postfix_expr id="33">
+<yaxx:primary_expr id="32">
+<yaxx:PUNCT_LPAR id="e">(</yaxx:PUNCT_LPAR>
+<yaxx:expr id="30">
+<yaxx:assignment_expr id="2f">
+<yaxx:conditional_expr id="2e">
+<yaxx:logical_or_expr id="2c">
+<yaxx:logical_and_expr id="2a">
+<yaxx:inclusive_or_expr id="28">
+<yaxx:exclusive_or_expr id="26">
+<yaxx:and_expr id="24">
+<yaxx:equality_expr id="22">
+<yaxx:relational_expr id="20">
+<yaxx:shift_expr id="1e">
+<yaxx:additive_expr id="1c">
+<yaxx:multiplicative_expr id="1a">
+<yaxx:cast_expr id="19">
+<yaxx:unary_expr id="17">
+<yaxx:postfix_expr id="15">
+<yaxx:postfix_expr id="12">
+<yaxx:primary_expr id="11">
+<yaxx:identifier id="10">
+<yaxx:IDENTIFIER id="f">yyparse</yaxx:IDENTIFIER>
+</yaxx:identifier>
+</yaxx:primary_expr>
+</yaxx:postfix_expr>
+<yaxx:PUNCT_LPAR id="13">(</yaxx:PUNCT_LPAR>
+<yaxx:PUNCT_RPAR id="14">)</yaxx:PUNCT_RPAR>
+</yaxx:postfix_expr>
+</yaxx:unary_expr>
+</yaxx:cast_expr>
+</yaxx:multiplicative_expr>
+</yaxx:additive_expr>
+</yaxx:shift_expr>
+</yaxx:relational_expr>
+</yaxx:equality_expr>
+</yaxx:and_expr>
+</yaxx:exclusive_or_expr>
+</yaxx:inclusive_or_expr>
+</yaxx:logical_and_expr>
+</yaxx:logical_or_expr>
+</yaxx:conditional_expr>
+</yaxx:assignment_expr>
+</yaxx:expr>
+<yaxx:PUNCT_RPAR id="31">)</yaxx:PUNCT_RPAR>
+</yaxx:primary_expr>
+</yaxx:postfix_expr>
+</yaxx:unary_expr>
+</yaxx:cast_expr>
+</yaxx:multiplicative_expr>
+</yaxx:additive_expr>
+</yaxx:shift_expr>
+</yaxx:relational_expr>
+</yaxx:equality_expr>
+</yaxx:and_expr>
+</yaxx:exclusive_or_expr>
+</yaxx:inclusive_or_expr>
+</yaxx:logical_and_expr>
+</yaxx:logical_or_expr>
+</yaxx:conditional_expr>
+</yaxx:assignment_expr>
+</yaxx:expr>
+<yaxx:PUNCT_SEMICOLON id="4f">;</yaxx:PUNCT_SEMICOLON>
+</yaxx:jump_statement>
+</yaxx:statement>
+</yaxx:statement_list>
+<yaxx:PUNCT_RBRACE id="53">}</yaxx:PUNCT_RBRACE>
+</yaxx:compound_statement>
+</yaxx:function_body>
+</yaxx:function_definition>
+</yaxx:external_definition>
 </yaxx:file>
 

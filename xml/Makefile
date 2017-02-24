@@ -1,8 +1,8 @@
+VER=2.2
 PREFIX=yy
-YACC = bison2.1
+YACC = bison$(VER)
 LEX  = flex
-#YFLAGS  = -dv -S yaxx-0.11-bison-2.1.c 
-YFLAGS  = -dv -S yaxx-0.12-bison-2.1.c 
+YFLAGS  = -dv -S yaxx-0.13-bison-$(VER).c 
 CFLAGS  = -g -O
 LFLAGS  =
 BIN = .

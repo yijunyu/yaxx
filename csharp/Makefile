@@ -15,11 +15,12 @@
  ###
  ### You should have received a copy of the GNU General Public License
  ### along with this program; if not, write to the Free Software
- ### Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ ### Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  0$(VER)1-1307  USA
  ###
 
-YACC = bison2.1
-YFLAGS  = -dv -S yaxx-0.12-bison-2.1.c
+VER=2.2
+YACC = bison$(VER)
+YFLAGS  = -dv -S yaxx-0.13-bison-$(VER).c
 
 csharp: lex.yy.o csharp.tab.o main.o
 	gcc -o csharp $^
