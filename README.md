@@ -20,7 +20,7 @@ YAXX - Yet Another XML eXtension to Bison
 * php/ -- PHP, see Yu et al. RE'04, RE'05, RE'07 papers and Candillon et al.'s APDT tool: https://code.google.com/archive/p/apdt/
 * sql/ -- SQL, see Zhang et al. VLDB'04, Lu et al. WIRI'05 paper
 * telos/ -- Telos, a knowledge representation language underlying ConceptBase, see http://conceptbase.sourceforge.net
-* xml/ -- XML, see Yu et al. SPE'03, Lapouchnian et al. CASCON'06, Yu et al. ICWS'08 papers
+* xml/ -- XML, see Yu et al. SPE'03, Lapouchnian et al. CASCON'06, BPM'07, Yu et al. ICWS'08 papers
 
 == Documentation =
 
