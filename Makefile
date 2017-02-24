@@ -1,4 +1,4 @@
-X=2.4
+X=2.4.1
 Y=0.13
 BISON=bison-${X}
 
@@ -9,7 +9,7 @@ all clean realclean: $(SUBDIRS)
 	rm -f README.html
 
 setup: ${BISON}
-	cp bison/data/yaxx-${Y}-bison-${X}.c /usr/local/share/bison/data
+	cp bison/data/yaxx-${Y}-bison-${X}.c /usr/local/share/bison
 	cd $(BISON) && ./configure --program-suffix=${X} && make && make install
 
 ${BISON}:
