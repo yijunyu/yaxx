@@ -3,8 +3,8 @@ YAXX - Yet Another XML eXtension to Bison
 = Source files = 
 
 * Makefile -- the makefile
-* bison/data/yacc-$VER.c -- the source file taken from bison-$VER/data/yacc.c
-* bison/data/yaxx-$Y-bison-$VER.c -- the file version $Y patched on yacc-$VER.c
+* bison/data/yacc-$X.c -- the source file taken from bison-$X/data/yacc.c
+* bison/data/yaxx-$Y-bison-$X.c -- the file version $Y patched on yacc-$X.c
 * yaxx/yaxx.xsl -- XSL transformation for YAXX parsing tree
 
 = Example Grammars =
@@ -22,7 +22,7 @@ YAXX - Yet Another XML eXtension to Bison
 * telos/ -- Telos, a knowledge representation language underlying ConceptBase, see http://conceptbase.sourceforge.net
 * xml/ -- XML, see Yu et al. SPE'03, Lapouchnian et al. CASCON'06, BPM'07, Yu et al. ICWS'08 papers
 
-== Documentation =
+= Documentation =
 
 * docs/Makefile -- makefile
 * docs/Doxyfile -- doxygen input
