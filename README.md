@@ -22,7 +22,7 @@ YAXX - Yet Another XML eXtension to Bison
 * telos/ -- Telos, a knowledge representation language underlying ConceptBase, see http://conceptbase.sourceforge.net
 * xml/ -- XML, see Yu et al. SPE'03, Lapouchnian et al. CASCON'06, BPM'07, Yu et al. ICWS'08 papers
 
-== Documentation =
+= Documentation =
 
 * docs/Makefile -- makefile
 * docs/Doxyfile -- doxygen input
