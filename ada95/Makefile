@@ -1,5 +1,5 @@
 PREFIX=ada
-VER=2.2
+VER=2.3
 YACC = bison$(VER)
 YFLAGS  = -dv -S yaxx-0.13-bison-$(VER).c
 LEX  = flex

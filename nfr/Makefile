@@ -1,4 +1,4 @@
-VER=2.2
+VER=2.3
 BISON=bison$(VER)
 PREFIX=yy
 NFR = $(wildcard *.nfr)

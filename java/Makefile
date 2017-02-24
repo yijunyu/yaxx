@@ -1,5 +1,5 @@
 PREFIX=java
-VER=2.2
+VER=2.3
 YACC = bison$(VER)
 LEX  = flex
 YFLAGS  = -dv -S yaxx-0.13-bison-$(VER).c

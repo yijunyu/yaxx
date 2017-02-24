@@ -1,4 +1,4 @@
-VER=2.2
+VER=2.3
 PREFIX=fortran
 YACC = bison$(VER)
 LEX  = flex

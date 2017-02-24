@@ -1,5 +1,5 @@
 BINDIR = .
-VER=2.2
+VER=2.3
 CC=gcc
 YACC=bison$(VER)
 YFLAGS  = -dv -S yaxx-0.13-bison-$(VER).c

@@ -18,7 +18,7 @@
  ### Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  0$(VER)1-1307  USA
  ###
 
-VER=2.2
+VER=2.3
 YACC = bison$(VER)
 YFLAGS  = -dv -S yaxx-0.13-bison-$(VER).c
 

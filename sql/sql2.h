@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 2.2.  */
+/* A Bison parser, made by GNU Bison 2.3.  */
 
 /* Skeleton interface for Bison's Yacc-like parsers in C
 
@@ -231,7 +231,7 @@ typedef union YYSTYPE
 	char *strval;
 	int subtok;
 }
-/* Line 1798 of yacc.c.  */
+/* Line 1799 of yacc.c.  */
 #line 236 "sql2.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
