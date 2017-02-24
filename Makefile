@@ -1,4 +1,4 @@
-X=2.5
+X=2.4.2
 Y=0.13
 BISON=bison-${X}
 
@@ -14,3 +14,4 @@ setup: ${BISON}
 
 ${BISON}:
 	if [ ' -d ${BISON} ' ]; then wget https://ftp.gnu.org/gnu/bison/${BISON}.tar.bz2; tar xvfj ${BISON}.tar.bz2; fi
+#	if [ ' -d ${BISON} ' ]; then wget https://ftp.gnu.org/gnu/bison/${BISON}.tar.xz; tar xvfJ ${BISON}.tar.xz; fi
