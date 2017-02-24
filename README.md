@@ -3,8 +3,8 @@ YAXX - Yet Another XML eXtension to Bison
 = Source files = 
 
 * Makefile -- the makefile
-* bison/data/yacc-$VER.c -- the source file taken from bison-$VER/data/yacc.c
-* bison/data/yaxx-$Y-bison-$VER.c -- the file version $Y patched on yacc-$VER.c
+* bison/data/yacc-$X.c -- the source file taken from bison-$X/data/yacc.c
+* bison/data/yaxx-$Y-bison-$X.c -- the file version $Y patched on yacc-$VER.c
 * yaxx/yaxx.xsl -- XSL transformation for YAXX parsing tree
 
 = Example Grammars =
