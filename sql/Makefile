@@ -47,7 +47,7 @@ scn2.o: sql2.h
 sql2.tab.h: sql2.tab.c
 
 clean:
-	rm -f sql*.tab.h sql*.tab.c sql*.output scn*.c *.o
+	rm -f sql*.tab.h sql*.tab.c sql*.output scn*.c *.o sql1.h sql2.h
 
 realclean:
 	${MAKE} clean
