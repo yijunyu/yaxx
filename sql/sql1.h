@@ -1,5 +1,5 @@
 
-/* A Bison parser, made by GNU Bison 2.4.1.  */
+/* A Bison parser, made by GNU Bison 2.4.2.  */
 
 /* Skeleton interface for Bison's Yacc-like parsers in C
    
@@ -142,7 +142,7 @@
 typedef union YYSTYPE
 {
 
-/* Line 1979 of yaxx-0.13-bison-2.4.1.c  */
+/* Line 1979 of yaxx-0.13-bison-2.4.2.c  */
 #line 3 "sql1.y"
 
 	int intval;
@@ -152,7 +152,7 @@ typedef union YYSTYPE
 
 
 
-/* Line 1979 of yaxx-0.13-bison-2.4.1.c  */
+/* Line 1979 of yaxx-0.13-bison-2.4.2.c  */
 #line 157 "sql1.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
