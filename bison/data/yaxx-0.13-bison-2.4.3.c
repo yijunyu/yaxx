@@ -2,8 +2,8 @@
 
 # Yacc compatible skeleton for Bison
 
-# Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
-# 2007, 2008 Free Software Foundation, Inc.
+# Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005,
+# 2006, 2007, 2008, 2009, 2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -156,9 +156,9 @@ m4_define([b4_rhs_location],
 # We do want M4 expansion after # for CPP macros.
 m4_changecom()
 m4_divert_push(0)dnl
-@output(b4_parser_file_name@)
-b4_copyright([Skeleton implementation for Bison's Yacc-like parsers in C],dnl '
-  [1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006])[
+@output(b4_parser_file_name@)@
+b4_copyright([Skeleton implementation for Bison's Yacc-like parsers in C],
+             [1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010])[
 
 /* C LALR(1) parser skeleton written by Richard Stallman, by
    simplifying the original so-called "semantic" parser.  */
@@ -317,7 +317,7 @@ typedef short int yytype_int16;
 #define YYSIZE_MAXIMUM ((YYSIZE_T) -1)
 
 #ifndef YY_
-# if YYENABLE_NLS
+# if defined YYENABLE_NLS && YYENABLE_NLS
 #  if ENABLE_NLS
 #   include <libintl.h> /* INFRINGES ON USER NAME SPACE */
 #   define YY_(msgid) dgettext ("bison-runtime", msgid)
@@ -628,9 +628,18 @@ static const ]b4_int_type_for([b4_stos])[ yystos[] =
 
 /* Like YYERROR except do call yyerror.  This remains here temporarily
    to ease the transition to the new meaning of YYERROR, for GCC.
-   Once GCC version 2 has supplanted version 1, this can go.  */
+   Once GCC version 2 has supplanted version 1, this can go.  However,
+   YYFAIL appears to be in use.  Nevertheless, it is formally deprecated
+   in Bison 2.4.2's NEWS entry, where a plan to phase it out is
+   discussed.  */
 
 #define YYFAIL		goto yyerrlab
+#if defined YYFAIL
+  /* This is here to suppress warnings from the GCC cpp's
+     -Wunused-macros.  Normally we don't worry about that warning, but
+     some users do, and we want to make it easy for users to remove
+     YYFAIL uses, which will produce warnings from Bison 2.5.  */
+#endif
 
 #define YYRECOVERING()  (!!yyerrstatus)
 
@@ -687,7 +696,7 @@ while (YYID (0))
    we won't break user code: when these are the locations we know.  */
 
 #ifndef YY_LOCATION_PRINT
-# if YYLTYPE_IS_TRIVIAL
+# if defined YYLTYPE_IS_TRIVIAL && YYLTYPE_IS_TRIVIAL
 #  define YY_LOCATION_PRINT(File, Loc)			\
      fprintf (File, "%d.%d-%d.%d",			\
 	      (Loc).first_line, (Loc).first_column,	\
@@ -1452,7 +1461,8 @@ char str[[256]];
   yyxsp = yyxs;])[
 ]b4_locations_if([[
   yylsp = yyls;
-#if YYLTYPE_IS_TRIVIAL
+
+#if defined YYLTYPE_IS_TRIVIAL && YYLTYPE_IS_TRIVIAL
   /* Initialize the default location before parsing starts.  */
   yylloc.first_line   = yylloc.last_line   = ]b4_location_initial_line[;
   yylloc.first_column = yylloc.last_column = ]b4_location_initial_column[;
@@ -1823,7 +1833,7 @@ yyerrlab:
 #endif
     }
 
-]b4_locations_if([[  yyerror_range[0] = yylloc;]])[
+]b4_locations_if([[  yyerror_range[1] = yylloc;]])[
 
   if (yyerrstatus == 3)
     {
@@ -1860,7 +1870,7 @@ yyerrorlab:
   if (/*CONSTCOND*/ 0)
      goto yyerrorlab;
 
-]b4_locations_if([[  yyerror_range[0] = yylsp[1-yylen];
+]b4_locations_if([[  yyerror_range[1] = yylsp[1-yylen];
 ]])[  /* Do not reclaim the symbols of the rule which action triggered
      this YYERROR.  */
   YYPOPSTACK (yylen);
@@ -1894,7 +1904,7 @@ yyerrlab1:
       if (yyssp == yyss)
 	YYABORT;
 
-]b4_locations_if([[      yyerror_range[0] = *yylsp;]])[
+]b4_locations_if([[      yyerror_range[1] = *yylsp;]])[
       yydestruct ("Error: popping",
 		  yystos[yystate], yyvsp]b4_locations_if([, yylsp])[]b4_user_args[);
       YYPOPSTACK (1);
@@ -1907,10 +1917,10 @@ yyerrlab1:
 ])[
   *++yyvsp = yylval;
 ]b4_locations_if([[
-  yyerror_range[1] = yylloc;
+  yyerror_range[2] = yylloc;
   /* Using YYLLOC is tempting, but would change the location of
      the lookahead.  YYLOC is available though.  */
-  YYLLOC_DEFAULT (yyloc, (yyerror_range - 1), 2);
+  YYLLOC_DEFAULT (yyloc, yyerror_range, 2);
   *++yylsp = yyloc;]])[
 
   /* Shift the error token.  */
@@ -1977,9 +1987,9 @@ yypushreturn:
 
 ]b4_epilogue
 b4_defines_if(
-[@output(b4_spec_defines_file@)
-b4_copyright([Skeleton interface for Bison's Yacc-like parsers in C],dnl '
-  [1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006])
+[@output(b4_spec_defines_file@)@
+b4_copyright([Skeleton interface for Bison's Yacc-like parsers in C],
+             [1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010])
 
 b4_percent_code_get([[requires]])[]dnl
 
