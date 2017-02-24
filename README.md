@@ -4,7 +4,7 @@ YAXX - Yet Another XML eXtension to Bison
 
 * Makefile -- the makefile
 * bison/data/yacc-$X.c -- the source file taken from bison-$X/data/yacc.c
-* bison/data/yaxx-$Y-bison-$X.c -- the file version $Y patched on yacc-$VER.c
+* bison/data/yaxx-$Y-bison-$X.c -- the file version $Y patched on yacc-$X.c
 * yaxx/yaxx.xsl -- XSL transformation for YAXX parsing tree
 
 = Example Grammars =
