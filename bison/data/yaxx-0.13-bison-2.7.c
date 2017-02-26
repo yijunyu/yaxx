@@ -50,9 +50,7 @@ m4_define([b4_lac_flag],
                  [none], [[0]], [[1]])])
 
 m4_include(b4_pkgdatadir/[c.m4])
-// m4_define([b4_yaxx],[])
 m4_define([b4_yaxx],[$1])
-// m4_define([b4_not_yaxx],[$1])
 m4_define([b4_not_yaxx],[])
 
 ## ---------------- ##
@@ -69,24 +67,36 @@ m4_define_default([b4_stack_depth_init],  [200])
 ## ------------------------ ##
 
 b4_percent_define_default([[api.pure]], [[false]])
-b4_define_flag_if([pure])
-m4_define([b4_pure_flag],
-          [b4_percent_define_flag_if([[api.pure]], [[1]], [[0]])])
+b4_percent_define_check_values([[[[api.pure]],
+                                 [[false]], [[true]], [[]], [[full]]]])
 
-# b4_yacc_pure_if(IF-TRUE, IF-FALSE)
-# ----------------------------------
-# Expand IF-TRUE, if %pure-parser and %parse-param, IF-FALSE otherwise.
-m4_define([b4_yacc_pure_if],
-[b4_pure_if([m4_ifset([b4_parse_param],
-		      [$1], [$2])],
-	    [$2])])
+m4_define([b4_pure_flag], [[0]])
+m4_case(b4_percent_define_get([[api.pure]]),
+        [false], [m4_define([b4_pure_flag], [[0]])],
+        [true],  [m4_define([b4_pure_flag], [[1]])],
+        [],      [m4_define([b4_pure_flag], [[1]])],
+        [full],  [m4_define([b4_pure_flag], [[2]])])
 
+m4_define([b4_pure_if],
+[m4_case(b4_pure_flag,
+         [0], [$2],
+         [1], [$1],
+         [2], [$1])])
+         [m4_fatal([invalid api.pure value: ]$1)])])
+
+# b4_yyerror_arg_loc_if(ARG)
+# --------------------------
+# Expand ARG iff yyerror is to be given a location as argument.
+m4_define([b4_yyerror_arg_loc_if],
+[b4_locations_if([m4_case(b4_pure_flag,
+                          [1], [m4_ifset([b4_parse_param], [$1])],
+                          [2], [$1])])])
 
 # b4_yyerror_args
 # ---------------
 # Arguments passed to yyerror: user args plus yylloc.
 m4_define([b4_yyerror_args],
-[b4_yacc_pure_if([b4_locations_if([&yylloc, ])])dnl
+[b4_yyerror_arg_loc_if([&yylloc, ])dnl
 m4_ifset([b4_parse_param], [b4_c_args(b4_parse_param), ])])
 
 
@@ -188,7 +198,8 @@ int yychar;
    or non-GCC compilers.  */
 static YYSTYPE yyval_default;
 # define YY_INITIAL_VALUE(Value) = Value
-#endif]])[
+#endif]b4_locations_if([[
+static YYLTYPE yyloc_default][]b4_yyloc_default[;]])])[
 #ifndef YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
 # define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
 # define YY_IGNORE_MAYBE_UNINITIALIZED_END
@@ -201,7 +212,7 @@ static YYSTYPE yyval_default;
 YYSTYPE yylval YY_INITIAL_VALUE(yyval_default);]b4_locations_if([[
 
 /* Location data for the lookahead symbol.  */
-YYLTYPE yylloc][]b4_yyloc_default[;
+YYLTYPE yylloc]b4_pure_if([ = yyloc_default], [b4_yyloc_default])[;
 ]])b4_pure_if([], [[
 
 /* Number of syntax errors so far.  */
@@ -317,14 +328,12 @@ m4_define([b4_shared_declarations],
 ]b4_cpp_guard_close([b4_spec_defines_file])[]dnl
 ])
 
+
 ## -------------- ##
 ## Output files.  ##
 ## -------------- ##
 
-# We do want M4 expansion after # for CPP macros.
-m4_changecom()
-m4_divert_push(0)dnl
-@output(b4_parser_file_name@)@
+b4_output_begin([b4_parser_file_name])
 b4_copyright([Bison implementation for Yacc-like parsers in C],
              [1984, 1989-1990, 2000-2012])[
 
@@ -1256,7 +1265,6 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
 {
   YYSIZE_T yysize0 = yytnamerr (YY_NULL, yytname[yytoken]);
   YYSIZE_T yysize = yysize0;
-  YYSIZE_T yysize1;
   enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
   /* Internationalized format string. */
   const char *yyformat = YY_NULL;
@@ -1337,11 +1345,13 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
                     break;
                   }
                 yyarg[yycount++] = yytname[yyx];
-                yysize1 = yysize + yytnamerr (YY_NULL, yytname[yyx]);
-                if (! (yysize <= yysize1
-                       && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
-                  return 2;
-                yysize = yysize1;
+                {
+                  YYSIZE_T yysize1 = yysize + yytnamerr (YY_NULL, yytname[yyx]);
+                  if (! (yysize <= yysize1
+                         && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
+                    return 2;
+                  yysize = yysize1;
+                }
               }
         }]b4_lac_if([[
 # if ]b4_api_PREFIX[DEBUG
@@ -1365,10 +1375,12 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
 # undef YYCASE_
     }
 
-  yysize1 = yysize + yystrlen (yyformat);
-  if (! (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
-    return 2;
-  yysize = yysize1;
+  {
+    YYSIZE_T yysize1 = yysize + yystrlen (yyformat);
+    if (! (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
+      return 2;
+    yysize = yysize1;
+  }
 
   if (*yymsg_alloc < yysize)
     {
@@ -1430,7 +1442,8 @@ b4_c_function_def([[yyparse]], [[int]], b4_parse_param)[
   yypstate *yyps_local;]b4_pure_if([[
   int yychar;
   YYSTYPE yylval;]b4_locations_if([[
-  YYLTYPE yylloc][]b4_yyloc_default[;]])])[
+  static YYLTYPE yyloc_default][]b4_yyloc_default[;
+  YYLTYPE yylloc = yyloc_default;]])])[
   if (yyps)
     yyps_local = yyps;
   else
@@ -1765,9 +1778,9 @@ char str[[256]];
       goto yyread_pushed_token;
     }]])[
 
-  yyssp = yyss = yyssa;]b4_yaxx([[
+  yyssp = yyss = yyssa;]b4_yaxx([
   yyxsp = yyxs = yyxsa;
-]])[
+])[
   yyvsp = yyvs = yyvsa;]b4_locations_if([[
   yylsp = yyls = yylsa;]])[
   yystacksize = YYINITDEPTH;]b4_lac_if([[
@@ -1785,8 +1798,7 @@ char str[[256]];
   yychar = YYEMPTY; /* Cause a token to be read.  */
 ]m4_ifdef([b4_initial_action], [
 b4_dollar_pushdef([m4_define([b4_dollar_dollar_used])yylval], [],
-               [m4_define([b4_at_dollar_used])dnl
-b4_push_if([b4_pure_if([*])yypushed_loc], [yylloc])])dnl
+                  [b4_push_if([b4_pure_if([*])yypushed_loc], [yylloc])])dnl
 /* User initialization code.  */
 b4_user_initial_action
 b4_dollar_popdef[]dnl
@@ -2346,11 +2358,13 @@ yypushreturn:]])[
 
 
 ]b4_epilogue[]dnl
+b4_output_end()
+
 b4_defines_if(
-[@output(b4_spec_defines_file@)@
-b4_copyright([Bison interface for Yacc-like parsers in C],
-             [1984, 1989-1990, 2000-2012])[
+[b4_output_begin([b4_spec_defines_file])[
+]b4_copyright([Bison interface for Yacc-like parsers in C],
+              [1984, 1989-1990, 2000-2012])[
 
 ]b4_shared_declarations[
-]])dnl b4_defines_if
-m4_divert_pop(0)
+]b4_output_end()
+])

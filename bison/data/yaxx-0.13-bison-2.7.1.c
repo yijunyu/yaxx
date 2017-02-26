@@ -50,9 +50,7 @@ m4_define([b4_lac_flag],
                  [none], [[0]], [[1]])])
 
 m4_include(b4_pkgdatadir/[c.m4])
-// m4_define([b4_yaxx],[])
 m4_define([b4_yaxx],[$1])
-// m4_define([b4_not_yaxx],[$1])
 m4_define([b4_not_yaxx],[])
 
 ## ---------------- ##
@@ -1775,7 +1773,9 @@ char str[[256]];
       goto yyread_pushed_token;
     }]])[
 
-  yyssp = yyss = yyssa;
+  yyssp = yyss = yyssa;]b4_yaxx([
+  yyxsp = yyxs = yyxsa;
+])[
   yyvsp = yyvs = yyvsa;]b4_locations_if([[
   yylsp = yyls = yylsa;]])[
   yystacksize = YYINITDEPTH;]b4_lac_if([[
@@ -1791,7 +1791,6 @@ char str[[256]];
   yyerrstatus = 0;
   yynerrs = 0;
   yychar = YYEMPTY; /* Cause a token to be read.  */
-]b4_yaxx([ yyxsp = yyxs;])[
 ]m4_ifdef([b4_initial_action], [
 b4_dollar_pushdef([m4_define([b4_dollar_dollar_used])yylval], [],
                   [b4_push_if([b4_pure_if([*])yypushed_loc], [yylloc])])dnl
@@ -2295,7 +2294,7 @@ yyerrlab1:
 /*-------------------------------------.
 | yyacceptlab -- YYACCEPT comes here.  |
 `-------------------------------------*/
-yyacceptlab:]b4_yaxx([generate_xml_output(yyxsp,yyxs);])[
+yyacceptlab:]b4_yaxx([generate_xml_output(--yyxsp,yyxs);])[
   yyresult = 0;
   goto yyreturn;
 
