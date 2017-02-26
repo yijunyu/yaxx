@@ -1,80 +1,80 @@
-<!ELEMENT executable_program (subprogram | (executable_program,subprogram) | program_fragment)>
-<!ELEMENT subprogram (subprogram_stmnts)>
-<!ELEMENT subprogram_stmnts ((statements,end_statement))>
-<!ELEMENT program_statement ((SPROGRAM,new_proc,progname) | (SPROGRAM,new_proc,progname,progarglist))>
-<!ELEMENT subroutine_statement ((SBLOCK,new_proc,progname) | (SSUBROUTINE,new_proc,entryname,arglist) | (SFUNCTION,new_proc,entryname,arglist) | (type,SFUNCTION,new_proc,entryname,arglist))>
-<!ELEMENT program_fragment (statements)>
-<!ELEMENT statements (terminated_statement | (statements,terminated_statement))>
-<!ELEMENT terminated_statement ((statement,SEOS))>
-<!ELEMENT end_statement ((thislabel,SEND,end_spec,SEOS))>
-<!ELEMENT statement ((thislabel,spec) | (thislabel,exec) | (thislabel,SINCLUDE,filename) | (thislabel,SUNKNOWN) | comment | error | (thislabel,program_statement) | (thislabel,subroutine_statement))>
-<!ELEMENT comment (SCOMMENT)>
-<!ELEMENT thislabel (SLABEL)>
+<!ELEMENT executable_program ( |  | )>
+<!ELEMENT subprogram ()>
+<!ELEMENT subprogram_stmnts ()>
+<!ELEMENT program_statement ( | )>
+<!ELEMENT subroutine_statement ( |  |  | )>
+<!ELEMENT program_fragment ()>
+<!ELEMENT statements ( | )>
+<!ELEMENT terminated_statement ()>
+<!ELEMENT end_statement ()>
+<!ELEMENT statement ( |  |  |  |  |  |  | )>
+<!ELEMENT comment ()>
+<!ELEMENT thislabel ()>
 <!ELEMENT new_proc (EMPTY)>
-<!ELEMENT entryname (name)>
-<!ELEMENT name (SNAME)>
-<!ELEMENT progname (EMPTY | entryname)>
-<!ELEMENT progarglist ((SLPAR,SRPAR) | (SLPAR,progargs,SRPAR))>
-<!ELEMENT progargs (progarg | (progargs,SCOMMA,progarg))>
-<!ELEMENT progarg (SNAME | (SNAME,SEQUALS,SNAME))>
-<!ELEMENT arglist (EMPTY | (SLPAR,SRPAR) | (SLPAR,args,SRPAR))>
-<!ELEMENT args (arg | (args,SCOMMA,arg))>
-<!ELEMENT arg (name | SSTAR)>
-<!ELEMENT filename (SHOLLERITH)>
-<!ELEMENT spec (dcl | common_statement | external | intrinsic | equivalence | data | implicit | namelist | SSAVE | (SSAVE,savelist) | SFORMAT | SOPEN | (SPARAM,in_dcl,SLPAR,paramlist,SRPAR))>
-<!ELEMENT dcl ((type,opt_comma,name,in_dcl,new_dcl,dims,lengspec) | (dcl,SCOMMA,name,dims,lengspec) | (dcl,SSLASHD,datainit,vallist,SSLASHD))>
+<!ELEMENT entryname ()>
+<!ELEMENT name ()>
+<!ELEMENT progname (EMPTY | )>
+<!ELEMENT progarglist ( | )>
+<!ELEMENT progargs ( | )>
+<!ELEMENT progarg ( | )>
+<!ELEMENT arglist (EMPTY |  | )>
+<!ELEMENT args ( | )>
+<!ELEMENT arg ( | )>
+<!ELEMENT filename ()>
+<!ELEMENT spec ( |  |  |  |  |  |  |  |  |  |  |  | )>
+<!ELEMENT dcl ( |  | )>
 <!ELEMENT new_dcl (EMPTY)>
-<!ELEMENT type ((typespec,lengspec))>
-<!ELEMENT typespec (typename)>
-<!ELEMENT typename (SINTEGER | SREAL | SCOMPLEX | SDOUBLE | SDCOMPLEX | SLOGICAL | SCHARACTER | SUNDEFINED | SDIMENSION | SAUTOMATIC | SSTATIC)>
-<!ELEMENT lengspec (EMPTY | (SSTAR,intonlyon,simple_const_int,intonlyoff) | (SSTAR,intonlyon,SLPAR,expr,SRPAR,intonlyoff) | (SSTAR,intonlyon,SLPAR,SSTAR,SRPAR,intonlyoff))>
-<!ELEMENT common_statement ((SCOMMON,in_dcl,var_list_comma,var) | (SCOMMON,in_dcl,comblocks))>
-<!ELEMENT var_list_comma (EMPTY | (var_list_comma,var,SCOMMA))>
-<!ELEMENT var_list_with_opt_comma (var_list_comma | (var_list_comma,var))>
-<!ELEMENT comblocks (comblock | (comblocks,comblock))>
-<!ELEMENT comblock ((comhead,var_list_with_opt_comma))>
-<!ELEMENT comhead (SCONCAT | (SSLASH,name,SSLASH))>
-<!ELEMENT var_list (EMPTY | var | (var_list,SCOMMA,var))>
-<!ELEMENT external ((SEXTERNAL,in_dcl,name) | (external,SCOMMA,name))>
-<!ELEMENT intrinsic ((SINTRINSIC,in_dcl,name) | (intrinsic,SCOMMA,name))>
-<!ELEMENT equivalence ((SEQUIV,in_dcl,equivset) | (equivalence,SCOMMA,equivset))>
-<!ELEMENT equivset ((SLPAR,equivlist,SRPAR))>
-<!ELEMENT equivlist (lhs | (equivlist,SCOMMA,lhs))>
-<!ELEMENT data ((SDATA,in_data,datalist) | (data,opt_comma,datalist))>
+<!ELEMENT type ()>
+<!ELEMENT typespec ()>
+<!ELEMENT typename ( |  |  |  |  |  |  |  |  |  | )>
+<!ELEMENT lengspec (EMPTY |  |  | )>
+<!ELEMENT common_statement ( | )>
+<!ELEMENT var_list_comma (EMPTY | )>
+<!ELEMENT var_list_with_opt_comma ( | )>
+<!ELEMENT comblocks ( | )>
+<!ELEMENT comblock ()>
+<!ELEMENT comhead ( | )>
+<!ELEMENT var_list (EMPTY |  | )>
+<!ELEMENT external ( | )>
+<!ELEMENT intrinsic ( | )>
+<!ELEMENT equivalence ( | )>
+<!ELEMENT equivset ()>
+<!ELEMENT equivlist ( | )>
+<!ELEMENT data ( | )>
 <!ELEMENT in_data (EMPTY)>
-<!ELEMENT datalist ((datainit,datavarlist,SSLASH,datapop,vallist,SSLASH))>
+<!ELEMENT datalist ()>
 <!ELEMENT datainit (EMPTY)>
 <!ELEMENT datapop (EMPTY)>
-<!ELEMENT vallist (val | (vallist,SCOMMA,val))>
-<!ELEMENT val (value | (simple,SSTAR,value))>
-<!ELEMENT value (simple | (addop,simple) | complex_const)>
-<!ELEMENT savelist (saveitem | (savelist,SCOMMA,saveitem))>
-<!ELEMENT saveitem (name | comhead)>
-<!ELEMENT paramlist (paramitem | (paramlist,SCOMMA,paramitem))>
-<!ELEMENT paramitem ((name,SEQUALS,expr))>
-<!ELEMENT var ((name,dims))>
-<!ELEMENT datavar (lhs | (SLPAR,datavarlist,SCOMMA,dospec,SRPAR))>
-<!ELEMENT datavarlist (datavar | (datavarlist,SCOMMA,datavar))>
-<!ELEMENT dims (EMPTY | (SLPAR,dimlist,SRPAR))>
-<!ELEMENT dimlist (dim | (dimlist,SCOMMA,dim))>
-<!ELEMENT dim (ubound | (expr,SCOLON,ubound))>
-<!ELEMENT ubound (SSTAR | expr)>
-<!ELEMENT labellist (label | (labellist,SCOMMA,label))>
-<!ELEMENT label (SICON)>
-<!ELEMENT implicit ((SIMPLICIT,in_dcl,implist) | (implicit,SCOMMA,implist))>
-<!ELEMENT implist ((imptype,SLPAR,letgroups,SRPAR) | imptype)>
-<!ELEMENT imptype (type)>
-<!ELEMENT letgroups (letgroup | (letgroups,SCOMMA,letgroup))>
-<!ELEMENT letgroup (letter | (letter,SMINUS,letter))>
-<!ELEMENT letter (SNAME)>
-<!ELEMENT namelist (SNAMELIST | (namelist,namelistentry))>
-<!ELEMENT namelistentry ((SSLASH,name,SSLASH,namelistlist))>
-<!ELEMENT namelistlist (name | (namelistlist,SCOMMA,name))>
+<!ELEMENT vallist ( | )>
+<!ELEMENT val ( | )>
+<!ELEMENT value ( |  | )>
+<!ELEMENT savelist ( | )>
+<!ELEMENT saveitem ( | )>
+<!ELEMENT paramlist ( | )>
+<!ELEMENT paramitem ()>
+<!ELEMENT var ()>
+<!ELEMENT datavar ( | )>
+<!ELEMENT datavarlist ( | )>
+<!ELEMENT dims (EMPTY | )>
+<!ELEMENT dimlist ( | )>
+<!ELEMENT dim ( | )>
+<!ELEMENT ubound ( | )>
+<!ELEMENT labellist ( | )>
+<!ELEMENT label ()>
+<!ELEMENT implicit ( | )>
+<!ELEMENT implist ( | )>
+<!ELEMENT imptype ()>
+<!ELEMENT letgroups ( | )>
+<!ELEMENT letgroup ( | )>
+<!ELEMENT letter ()>
+<!ELEMENT namelist ( | )>
+<!ELEMENT namelistentry ()>
+<!ELEMENT namelistlist ( | )>
 <!ELEMENT in_dcl (EMPTY)>
-<!ELEMENT funarglist (EMPTY | funargs)>
-<!ELEMENT funargs (expr | (funargs,SCOMMA,expr))>
-<!ELEMENT expr (uexpr | (SLPAR,expr,SRPAR) | complex_const)>
-<!ELEMENT uexpr (lhs | simple_const | (expr,addop,expr) | (expr,SSTAR,expr) | (expr,SSLASH,expr))>
+<!ELEMENT funarglist (EMPTY | )>
+<!ELEMENT funargs ( | )>
+<!ELEMENT expr ( |  | )>
+<!ELEMENT uexpr ( |  |  |  | )>
 <!ELEMENT SEOS (#PCDATA)>
 <!ELEMENT SCOMMENT (#PCDATA)>
 <!ELEMENT SLABEL (#PCDATA)>
