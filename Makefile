@@ -13,6 +13,6 @@ setup: ${BISON}
 	cd $(BISON) && ./configure --program-suffix=${X} && make && make install
 
 ${BISON}:
-	if [ ' -d ${BISON} ' ]; then wget https://ftp.gnu.org/gnu/bison/${BISON}.tar.bz2; tar xvfj ${BISON}.tar.bz2; fi
+#	if [ ' -d ${BISON} ' ]; then wget https://ftp.gnu.org/gnu/bison/${BISON}.tar.bz2; tar xvfj ${BISON}.tar.bz2; fi
+	if [ ' -d ${BISON} ' ]; then wget https://ftp.gnu.org/gnu/bison/${BISON}.tar.xz; tar xvfJ ${BISON}.tar.xz; fi
 	cp ${BISON}/data/yacc.c bison/data/yacc-${X}.c
-#	if [ ' -d ${BISON} ' ]; then wget https://ftp.gnu.org/gnu/bison/${BISON}.tar.xz; tar xvfJ ${BISON}.tar.xz; fi

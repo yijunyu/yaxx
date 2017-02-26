@@ -2,7 +2,7 @@
 
 # Yacc compatible skeleton for Bison
 
-# Copyright (C) 1984, 1989-1990, 2000-2011 Free Software Foundation,
+# Copyright (C) 1984, 1989-1990, 2000-2012 Free Software Foundation,
 # Inc.
 
 # This program is free software: you can redistribute it and/or modify
@@ -162,9 +162,9 @@ m4_define([b4_rhs_location],
 [(yylsp@{($2) - ($1)@})])
 
 
-## ------------------ ##
-## Parser variables.  ##
-## ------------------ ##
+## -------------- ##
+## Declarations.  ##
+## -------------- ##
 
 # b4_declare_scanner_communication_variables
 # ------------------------------------------
@@ -201,7 +201,7 @@ m4_define([b4_declare_parser_state_variables], [b4_pure_if([[
        `yyvs': related to semantic values.]b4_locations_if([[
        `yyls': related to locations.]])[
 
-       Refer to the stacks thru separate pointers, to allow yyoverflow
+       Refer to the stacks through separate pointers, to allow yyoverflow
        to reallocate them elsewhere.  */
 
     /* The state stack.  */
@@ -229,16 +229,80 @@ m4_define([b4_declare_parser_state_variables], [b4_pure_if([[
     YYSIZE_T yyes_capacity;]])])
 
 
-## --------------------------------------------------------- ##
-## Defining symbol actions, e.g., printers and destructors.  ##
-## --------------------------------------------------------- ##
+# b4_declare_yyparse_push_
+# ------------------------
+# Declaration of yyparse (and dependencies) when using the push parser
+# (including in pull mode).
+m4_define([b4_declare_yyparse_push_],
+[[#ifndef YYPUSH_MORE_DEFINED
+# define YYPUSH_MORE_DEFINED
+enum { YYPUSH_MORE = 4 };
+#endif
+
+typedef struct ]b4_prefix[pstate ]b4_prefix[pstate;
+
+]b4_pull_if([b4_c_function_decl([b4_prefix[parse]], [[int]], b4_parse_param)
+])b4_c_function_decl([b4_prefix[push_parse]], [[int]],
+  [[b4_prefix[pstate *ps]], [[ps]]]b4_pure_if([,
+  [[[int pushed_char]], [[pushed_char]]],
+  [[b4_api_PREFIX[STYPE const *pushed_val]], [[pushed_val]]]b4_locations_if([,
+  [[b4_api_PREFIX[LTYPE const *pushed_loc]], [[pushed_loc]]]])])m4_ifset([b4_parse_param], [,
+  b4_parse_param]))
+b4_pull_if([b4_c_function_decl([b4_prefix[pull_parse]], [[int]],
+  [[b4_prefix[pstate *ps]], [[ps]]]m4_ifset([b4_parse_param], [,
+  b4_parse_param]))])
+b4_c_function_decl([b4_prefix[pstate_new]], [b4_prefix[pstate *]],
+                    [[[void]], []])
+b4_c_function_decl([b4_prefix[pstate_delete]], [[void]],
+                   [[b4_prefix[pstate *ps]], [[ps]]])dnl
+])
+
+# b4_declare_yyparse_
+# -------------------
+# When not the push parser.
+m4_define([b4_declare_yyparse_],
+[[#ifdef YYPARSE_PARAM
+]b4_c_function_decl(b4_prefix[parse], [int],
+                    [[void *YYPARSE_PARAM], [YYPARSE_PARAM]])[
+#else /* ! YYPARSE_PARAM */
+]b4_c_function_decl(b4_prefix[parse], [int], b4_parse_param)[
+#endif /* ! YYPARSE_PARAM */]dnl
+])
+
+
+# b4_declare_yyparse
+# ------------------
+m4_define([b4_declare_yyparse],
+[b4_push_if([b4_declare_yyparse_push_],
+            [b4_declare_yyparse_])[]dnl
+])
+
+
+# b4_shared_declarations
+# ----------------------
+# Declaration that might either go into the header (if --defines)
+# or open coded in the parser body.
+m4_define([b4_shared_declarations],
+[b4_cpp_guard_open([b4_spec_defines_file])[
+]b4_declare_yydebug[
+]b4_percent_code_get([[requires]])[
+]b4_token_enums_defines(b4_tokens)[
+]b4_declare_yylstype[
+]b4_declare_yyparse[
+]b4_percent_code_get([[provides]])[
+]b4_cpp_guard_close([b4_spec_defines_file])[]dnl
+])
+
+## -------------- ##
+## Output files.  ##
+## -------------- ##
 
 # We do want M4 expansion after # for CPP macros.
 m4_changecom()
 m4_divert_push(0)dnl
 @output(b4_parser_file_name@)@
 b4_copyright([Bison implementation for Yacc-like parsers in C],
-             [1984, 1989-1990, 2000-2011])[
+             [1984, 1989-1990, 2000-2012])[
 
 /* C LALR(1) parser skeleton written by Richard Stallman, by
    simplifying the original so-called "semantic" parser.  */
@@ -252,7 +316,11 @@ b4_copyright([Bison implementation for Yacc-like parsers in C],
 
 ]b4_identification
 b4_percent_code_get([[top]])[]dnl
-m4_if(b4_prefix, [yy], [],
+m4_if(b4_api_prefix, [yy], [],
+[[/* Substitute the type names.  */
+#define YYSTYPE         ]b4_api_PREFIX[STYPE]b4_locations_if([[
+#define YYLTYPE         ]b4_api_PREFIX[LTYPE]])])[
+]m4_if(b4_prefix, [yy], [],
 [[/* Substitute the variable and function names.  */]b4_pull_if([[
 #define yyparse         ]b4_prefix[parse]])b4_push_if([[
 #define yypush_parse    ]b4_prefix[push_parse]b4_pull_if([[
@@ -269,16 +337,13 @@ m4_if(b4_prefix, [yy], [],
 ])[
 #define yychar          ]b4_prefix[char
 #define yydebug         ]b4_prefix[debug
-#define yynerrs         ]b4_prefix[nerrs
-]b4_locations_if([[#define yylloc          ]b4_prefix[lloc]])])[
+#define yynerrs         ]b4_prefix[nerrs]b4_locations_if([[
+#define yylloc          ]b4_prefix[lloc]])])[
 
 /* Copy the first part of user declarations.  */
 ]b4_user_pre_prologue[
 
-/* Enabling traces.  */
-#ifndef YYDEBUG
-# define YYDEBUG ]b4_debug_flag[
-#endif
+]b4_null_define[
 
 /* Enabling verbose error messages.  */
 #ifdef YYERROR_VERBOSE
@@ -288,66 +353,11 @@ m4_if(b4_prefix, [yy], [],
 # define YYERROR_VERBOSE ]b4_error_verbose_flag[
 #endif
 
-/* Enabling the token table.  */
-#ifndef YYTOKEN_TABLE
-# define YYTOKEN_TABLE ]b4_token_table[
-#endif
+/* In a future release of Bison, this section will be replaced
+   by #include "@basename(]b4_spec_defines_file[@)".  */
+]b4_shared_declarations[
 
-]b4_percent_code_get([[requires]])[]dnl
-
-b4_token_enums_defines(b4_tokens)[
-
-#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-]m4_ifdef([b4_stype],
-[[typedef union ]b4_union_name[
-{
-]b4_user_stype[
-} YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1]],
-[m4_if(b4_tag_seen_flag, 0,
-[[typedef int YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1]])])[
-# define yystype YYSTYPE /* obsolescent; will be withdrawn */
-# define YYSTYPE_IS_DECLARED 1
-#endif]b4_locations_if([[
-
-#if ! defined YYLTYPE && ! defined YYLTYPE_IS_DECLARED
-typedef struct YYLTYPE
-{
-  int first_line;
-  int first_column;
-  int last_line;
-  int last_column;
-} YYLTYPE;
-# define yyltype YYLTYPE /* obsolescent; will be withdrawn */
-# define YYLTYPE_IS_DECLARED 1
-# define YYLTYPE_IS_TRIVIAL 1
-#endif]])b4_push_if([[
-
-#ifndef YYPUSH_DECLS
-#  define YYPUSH_DECLS
-struct yypstate;
-typedef struct yypstate yypstate;
-enum { YYPUSH_MORE = 4 };
-
-]b4_pull_if([b4_c_function_decl([[yyparse]], [[int]], b4_parse_param)
-])b4_c_function_decl([[yypush_parse]], [[int]],
-  [[[yypstate *yyps]], [[yyps]]]b4_pure_if([,
-  [[[int yypushed_char]], [[yypushed_char]]],
-  [[[YYSTYPE const *yypushed_val]], [[yypushed_val]]]b4_locations_if([,
-  [[[YYLTYPE const *yypushed_loc]], [[yypushed_loc]]]])])m4_ifset([b4_parse_param], [,
-  b4_parse_param]))
-b4_pull_if([b4_c_function_decl([[yypull_parse]], [[int]],
-  [[[yypstate *yyps]], [[yyps]]]m4_ifset([b4_parse_param], [,
-  b4_parse_param]))])
-b4_c_function_decl([[yypstate_new]], [[yypstate *]], [[[void]], []])
-b4_c_function_decl([[yypstate_delete]], [[void]],
-                   [[[yypstate *yyps]], [[yyps]]])[
-#endif]])
-
-b4_percent_code_get([[provides]])[]dnl
-
-[/* Copy the second part of user declarations.  */
+/* Copy the second part of user declarations.  */
 ]b4_user_post_prologue
 b4_percent_code_get[]dnl
 
@@ -500,8 +510,8 @@ void free (void *); /* INFRINGES ON USER NAME SPACE */
 
 #if (! defined yyoverflow \
      && (! defined __cplusplus \
-	 || (]b4_locations_if([[defined YYLTYPE_IS_TRIVIAL && YYLTYPE_IS_TRIVIAL \
-	     && ]])[defined YYSTYPE_IS_TRIVIAL && YYSTYPE_IS_TRIVIAL)))
+	 || (]b4_locations_if([[defined ]b4_api_PREFIX[LTYPE_IS_TRIVIAL && ]b4_api_PREFIX[LTYPE_IS_TRIVIAL \
+	     && ]])[defined ]b4_api_PREFIX[STYPE_IS_TRIVIAL && ]b4_api_PREFIX[STYPE_IS_TRIVIAL)))
 
 /* A type that is properly aligned for any stack member.  */
 union yyalloc
@@ -545,20 +555,20 @@ union yyalloc
 #endif
 
 #if defined YYCOPY_NEEDED && YYCOPY_NEEDED
-/* Copy COUNT objects from FROM to TO.  The source and destination do
+/* Copy COUNT objects from SRC to DST.  The source and destination do
    not overlap.  */
 # ifndef YYCOPY
 #  if defined __GNUC__ && 1 < __GNUC__
-#   define YYCOPY(To, From, Count) \
-      __builtin_memcpy (To, From, (Count) * sizeof (*(From)))
+#   define YYCOPY(Dst, Src, Count) \
+      __builtin_memcpy (Dst, Src, (Count) * sizeof (*(Src)))
 #  else
-#   define YYCOPY(To, From, Count)		\
-      do					\
-	{					\
-	  YYSIZE_T yyi;				\
-	  for (yyi = 0; yyi < (Count); yyi++)	\
-	    (To)[yyi] = (From)[yyi];		\
-	}					\
+#   define YYCOPY(Dst, Src, Count)              \
+      do                                        \
+        {                                       \
+          YYSIZE_T yyi;                         \
+          for (yyi = 0; yyi < (Count); yyi++)   \
+            (Dst)[yyi] = (Src)[yyi];            \
+        }                                       \
       while (YYID (0))
 #  endif
 # endif
@@ -592,7 +602,7 @@ static const ]b4_int_type_for([b4_translate])[ yytranslate[] =
 };
 
 ]b4_not_yaxx([
-#if YYDEBUG
+#if ]b4_api_PREFIX[DEBUG
 ])[
 /* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
    YYRHS.  */
@@ -617,7 +627,7 @@ static const ]b4_int_type_for([b4_rline])[ yyrline[] =
 ])[
 
 ]b4_not_yaxx([
-#if YYDEBUG || YYERROR_VERBOSE || YYTOKEN_TABLE
+#if ]b4_api_PREFIX[DEBUG || YYERROR_VERBOSE || ]b4_token_table_flag[
 ])[
 /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
@@ -732,18 +742,19 @@ static const ]b4_int_type_for([b4_stos])[ yystos[] =
 
 #define YYRECOVERING()  (!!yyerrstatus)
 
-#define YYBACKUP(Token, Value)					\
-do								\
-  if (yychar == YYEMPTY && yylen == 1)				\
-    {								\
-      yychar = (Token);						\
-      yylval = (Value);						\
-      YYPOPSTACK (1);						\]b4_lac_if([[
-      YY_LAC_DISCARD ("YYBACKUP");				\]])[
-      goto yybackup;						\
-    }								\
-  else								\
-    {								\
+#define YYBACKUP(Token, Value)                                  \
+do                                                              \
+  if (yychar == YYEMPTY)                                        \
+    {                                                           \
+      yychar = (Token);                                         \
+      yylval = (Value);                                         \
+      YYPOPSTACK (yylen);                                       \
+      yystate = *yyssp;                                         \]b4_lac_if([[
+      YY_LAC_DISCARD ("YYBACKUP");                              \]])[
+      goto yybackup;                                            \
+    }                                                           \
+  else                                                          \
+    {                                                           \
       yyerror (]b4_yyerror_args[YY_("syntax error: cannot back up")); \
       YYERROR;							\
     }								\
@@ -753,31 +764,9 @@ while (YYID (0))
 #define YYTERROR	1
 #define YYERRCODE	256
 
-
-/* YYLLOC_DEFAULT -- Set CURRENT to span from RHS[1] to RHS[N].
-   If N is 0, then set CURRENT to the empty location which ends
-   the previous symbol: RHS[0] (always defined).  */
-
+]b4_yylloc_default_define[
 #define YYRHSLOC(Rhs, K) ((Rhs)[K])
-#ifndef YYLLOC_DEFAULT
-# define YYLLOC_DEFAULT(Current, Rhs, N)				\
-    do									\
-      if (YYID (N))                                                    \
-	{								\
-	  (Current).first_line   = YYRHSLOC (Rhs, 1).first_line;	\
-	  (Current).first_column = YYRHSLOC (Rhs, 1).first_column;	\
-	  (Current).last_line    = YYRHSLOC (Rhs, N).last_line;		\
-	  (Current).last_column  = YYRHSLOC (Rhs, N).last_column;	\
-	}								\
-      else								\
-	{								\
-	  (Current).first_line   = (Current).last_line   =		\
-	    YYRHSLOC (Rhs, 0).last_line;				\
-	  (Current).first_column = (Current).last_column =		\
-	    YYRHSLOC (Rhs, 0).last_column;				\
-	}								\
-    while (YYID (0))
-#endif]b4_locations_if([[
+]b4_locations_if([[
 
 
 /* YY_LOCATION_PRINT -- Print the location on the stream.
@@ -785,7 +774,7 @@ while (YYID (0))
    we won't break user code: when these are the locations we know.  */
 
 #ifndef YY_LOCATION_PRINT
-# if defined YYLTYPE_IS_TRIVIAL && YYLTYPE_IS_TRIVIAL
+# if defined ]b4_api_PREFIX[LTYPE_IS_TRIVIAL && ]b4_api_PREFIX[LTYPE_IS_TRIVIAL
 #  define YY_LOCATION_PRINT(File, Loc)			\
      fprintf (File, "%d.%d-%d.%d",			\
 	      (Loc).first_line, (Loc).first_column,	\
@@ -812,7 +801,7 @@ while (YYID (0))
 #endif
 
 /* Enable debugging if requested.  */
-#if YYDEBUG
+#if ]b4_api_PREFIX[DEBUG
 
 # ifndef YYFPRINTF
 #  include <stdio.h> /* INFRINGES ON USER NAME SPACE */
@@ -899,12 +888,12 @@ do {					\
 /* Nonzero means print parse trace.  It is left uninitialized so that
    multiple parsers can coexist.  */
 int yydebug;
-#else /* !YYDEBUG */
+#else /* !]b4_api_PREFIX[DEBUG */
 # define YYDPRINTF(Args)
 # define YY_SYMBOL_PRINT(Title, Type, Value, Location)
 # define YY_STACK_PRINT(Bottom, Top)
 # define YY_REDUCE_PRINT(Rule)
-#endif /* !YYDEBUG */
+#endif /* !]b4_api_PREFIX[DEBUG */
 
 
 /* YYINITDEPTH -- initial size of the parser's stacks.  */
@@ -935,7 +924,7 @@ int yydebug;
    required.  Return 1 if memory is exhausted.  */
 static int
 yy_lac_stack_realloc (YYSIZE_T *yycapacity, YYSIZE_T yyadd,
-#if YYDEBUG
+#if ]b4_api_PREFIX[DEBUG
                       char const *yydebug_prefix,
                       char const *yydebug_suffix,
 #endif
@@ -1041,7 +1030,7 @@ do {                                                             \
    the parser stacks to try to find a new initial context in which the
    current lookahead is syntactically acceptable.  If it fails to find
    such a context, it discards the lookahead.  */
-#if YYDEBUG
+#if ]b4_api_PREFIX[DEBUG
 # define YY_LAC_DISCARD(Event)                                           \
 do {                                                                     \
   if (yy_lac_established)                                                \
@@ -1144,7 +1133,7 @@ yy_lac (yytype_int16 *yyesa, yytype_int16 **yyes,
         else
           {
             if (yy_lac_stack_realloc (yyes_capacity, 1,
-#if YYDEBUG
+#if ]b4_api_PREFIX[DEBUG
                                       " (", ")",
 #endif
                                       yyes, yyesa, &yyesp, yyes_prev))
@@ -1261,12 +1250,12 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
                 ]b4_lac_if([[yytype_int16 *yyesa, yytype_int16 **yyes,
                 YYSIZE_T *yyes_capacity, ]])[yytype_int16 *yyssp, int yytoken)
 {
-  YYSIZE_T yysize0 = yytnamerr (0, yytname[yytoken]);
+  YYSIZE_T yysize0 = yytnamerr (YY_NULL, yytname[yytoken]);
   YYSIZE_T yysize = yysize0;
   YYSIZE_T yysize1;
   enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
   /* Internationalized format string. */
-  const char *yyformat = 0;
+  const char *yyformat = YY_NULL;
   /* Arguments of yyformat. */
   char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
   /* Number of reported tokens (one for the "unexpected", one per
@@ -1344,14 +1333,14 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
                     break;
                   }
                 yyarg[yycount++] = yytname[yyx];
-                yysize1 = yysize + yytnamerr (0, yytname[yyx]);
+                yysize1 = yysize + yytnamerr (YY_NULL, yytname[yyx]);
                 if (! (yysize <= yysize1
                        && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
                   return 2;
                 yysize = yysize1;
               }
         }]b4_lac_if([[
-# if YYDEBUG
+# if ]b4_api_PREFIX[DEBUG
       else if (yydebug)
         YYFPRINTF (stderr, "No expected tokens.\n");
 # endif]])[
@@ -1408,19 +1397,11 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
 }
 #endif /* YYERROR_VERBOSE */
 
-]b4_yydestruct_generate([b4_c_function_def])b4_push_if([], [[
+]b4_yydestruct_generate([b4_c_function_def])[
 
-
-/* Prevent warnings from -Wmissing-prototypes.  */
-#ifdef YYPARSE_PARAM
-]b4_c_function_decl([yyparse], [int],
-                    [[void *YYPARSE_PARAM], [YYPARSE_PARAM]])[
-#else /* ! YYPARSE_PARAM */
-]b4_c_function_decl([yyparse], [int], b4_parse_param)[
-#endif /* ! YYPARSE_PARAM */]])b4_pure_if([], [
+]b4_pure_if([], [
 
 b4_declare_scanner_communication_variables])[]b4_push_if([[
-
 
 struct yypstate
   {]b4_declare_parser_state_variables[
@@ -1433,7 +1414,7 @@ static char yypstate_allocated = 0;]])b4_pull_if([
 
 b4_c_function_def([[yyparse]], [[int]], b4_parse_param)[
 {
-  return yypull_parse (0]m4_ifset([b4_parse_param],
+  return yypull_parse (YY_NULL]m4_ifset([b4_parse_param],
                                   [[, ]b4_c_args(b4_parse_param)])[);
 }
 
@@ -1446,7 +1427,9 @@ b4_c_function_def([[yyparse]], [[int]], b4_parse_param)[
   int yychar;
   YYSTYPE yylval;]b4_locations_if([[
   YYLTYPE yylloc;]])])[
-  if (yyps == 0)
+  if (yyps)
+    yyps_local = yyps;
+  else
     {
       yyps_local = yypstate_new ();
       if (!yyps_local)
@@ -1457,14 +1440,12 @@ b4_c_function_def([[yyparse]], [[int]], b4_parse_param)[
           return 2;
         }
     }
-  else
-    yyps_local = yyps;
   do {
     yychar = YYLEX;
     yystatus =
       yypush_parse (yyps_local]b4_pure_if([[, yychar, &yylval]b4_locations_if([[, &yylloc]])])m4_ifset([b4_parse_param], [, b4_c_args(b4_parse_param)])[);
   } while (yystatus == YYPUSH_MORE);
-  if (yyps == 0)
+  if (!yyps)
     yypstate_delete (yyps_local);
   return yystatus;
 }]])[
@@ -1474,10 +1455,10 @@ b4_c_function_def([[yyparse]], [[int]], b4_parse_param)[
 {
   yypstate *yyps;]b4_pure_if([], [[
   if (yypstate_allocated)
-    return 0;]])[
+    return YY_NULL;]])[
   yyps = (yypstate *) malloc (sizeof *yyps);
   if (!yyps)
-    return 0;
+    return YY_NULL;
   yyps->yynew = 1;]b4_pure_if([], [[
   yypstate_allocated = 1;]])[
   return yyps;
@@ -1806,7 +1787,7 @@ char str[[256]];
   yyvsp = yyvs;]b4_yaxx([ yyxsp = yyxs;])[]b4_locations_if([[
   yylsp = yyls;
 
-#if defined YYLTYPE_IS_TRIVIAL && YYLTYPE_IS_TRIVIAL
+#if defined ]b4_api_PREFIX[LTYPE_IS_TRIVIAL && ]b4_api_PREFIX[LTYPE_IS_TRIVIAL
   /* Initialize the default location before parsing starts.  */
   yylloc.first_line   = yylloc.last_line   = ]b4_location_initial_line[;
   yylloc.first_column = yylloc.last_column = ]b4_location_initial_column[;
@@ -2322,7 +2303,7 @@ yyabortlab:
   yyresult = 1;
   goto yyreturn;
 
-#if ]b4_lac_if([[1]], [[!defined(yyoverflow) || YYERROR_VERBOSE]])[
+#if ]b4_lac_if([[1]], [[!defined yyoverflow || YYERROR_VERBOSE]])[
 /*-------------------------------------------------.
 | yyexhaustedlab -- memory exhaustion comes here.  |
 `-------------------------------------------------*/
@@ -2373,66 +2354,8 @@ yypushreturn:]])[
 b4_defines_if(
 [@output(b4_spec_defines_file@)@
 b4_copyright([Bison interface for Yacc-like parsers in C],
-             [1984, 1989-1990, 2000-2011])
+             [1984, 1989-1990, 2000-2012])[
 
-b4_percent_code_get([[requires]])[]dnl
-
-b4_token_enums_defines(b4_tokens)
-
-[#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-]m4_ifdef([b4_stype],
-[[typedef union ]b4_union_name[
-{
-]b4_user_stype[
-} YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1]],
-[m4_if(b4_tag_seen_flag, 0,
-[[typedef int YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1]])])[
-# define yystype YYSTYPE /* obsolescent; will be withdrawn */
-# define YYSTYPE_IS_DECLARED 1
-#endif
-
-]b4_pure_if([], [[extern YYSTYPE ]b4_prefix[lval;]])
-
-b4_locations_if(
-[#if ! defined YYLTYPE && ! defined YYLTYPE_IS_DECLARED
-typedef struct YYLTYPE
-{
-  int first_line;
-  int first_column;
-  int last_line;
-  int last_column;
-} YYLTYPE;
-# define yyltype YYLTYPE /* obsolescent; will be withdrawn */
-# define YYLTYPE_IS_DECLARED 1
-# define YYLTYPE_IS_TRIVIAL 1
-#endif
-
-]b4_pure_if([], [[extern YYLTYPE ]b4_prefix[lloc;]])
-)dnl b4_locations_if
-b4_push_if([[
-#ifndef YYPUSH_DECLS
-#  define YYPUSH_DECLS
-struct ]b4_prefix[pstate;
-typedef struct ]b4_prefix[pstate ]b4_prefix[pstate;
-enum { YYPUSH_MORE = 4 };
-]b4_pull_if([b4_c_function_decl([b4_prefix[parse]], [[int]], b4_parse_param)
-])b4_c_function_decl([b4_prefix[push_parse]], [[int]],
-  [[b4_prefix[pstate *yyps]], [[yyps]]]b4_pure_if([,
-  [[[int yypushed_char]], [[yypushed_char]]],
-  [[[YYSTYPE const *yypushed_val]], [[yypushed_val]]]b4_locations_if([,
-  [[[YYLTYPE const *yypushed_loc]], [[yypushed_loc]]]])])m4_ifset([b4_parse_param], [,
-  b4_parse_param]))
-b4_pull_if([b4_c_function_decl([b4_prefix[pull_parse]], [[int]],
-  [[b4_prefix[pstate *yyps]], [[yyps]]]m4_ifset([b4_parse_param], [,
-  b4_parse_param]))])
-b4_c_function_decl([b4_prefix[pstate_new]], [b4_prefix[pstate *]],
-                    [[[void]], []])
-b4_c_function_decl([b4_prefix[pstate_delete]], [[void]],
-                   [[b4_prefix[pstate *yyps]], [[yyps]]])[
-#endif
-]])
-b4_percent_code_get([[provides]])[]dnl
-])dnl b4_defines_if
+]b4_shared_declarations[
+]])dnl b4_defines_if
 m4_divert_pop(0)
